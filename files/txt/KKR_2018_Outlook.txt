@@ -1,20 +1,20 @@
 INSIGHTS
 
 GLOBAL MACRO TRENDS
-VOLUME 8.1 • JANUARY 2018
+VOLUME 8.1  JANUARY 2018
 
 Outlook for 2018: You Can
 Get What You Need
 
 TABLE OF CONTENTS
 
-INTRODUCTION������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+INTRODUCTION
 
-SECTION I: MACRO BASICS��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+SECTION I: MACRO BASICS
 
-Details on Global GDP����������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������� 11
-United States Outlook ��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������� 12
-European Outlook��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������15
+Details on Global GDP 11
+United States Outlook  12
+European Outlook15
 KKR Global Macro & Asset Allocation
 Henry H. McVey
 Head of Global Macro & Asset Allocation
@@ -24,25 +24,25 @@ David R. McNellis
 +1 (212) 519.1629
 david.mcnellis@kkr.com
 
-Chinese Outlook��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������18
-Brazilian Outlook ��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������20
-Equities Have More Potential Upside than Credit��������������������������������������������������������������������������������������������������������������������������������22
-Oil Outlook ������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������ 27
-Where We Are in the Cycle/Expected Returns ���������������������������������������������������������������������������������������������������������������������������������������� 29
+Chinese Outlook18
+Brazilian Outlook 20
+Equities Have More Potential Upside than Credit22
+Oil Outlook  27
+Where We Are in the Cycle/Expected Returns  29
 
-SECTION II: KEY THEMES ������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+SECTION II: KEY THEMES 
 
 Frances B. Lim
 +61 (2) 8298.5553
 frances.lim@kkr.com
 
-We Are in a Mid-cycle Phase of EM Recovery������������������������������������������������������������������������������������������������������������������������������������������ 34
+We Are in a Mid-cycle Phase of EM Recovery 34
 
 Paula Campbell Roberts
 +1 (646) 560.0299
 paula.campbellroberts@kkr.com
 
-Buy Complexity, Sell Simplicity������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������ 38
+Buy Complexity, Sell Simplicity 38
 
 Aidan T. Corcoran
 + (353) 151.1045.1
@@ -54,20 +54,20 @@ Brian C. Leung
 +1 (212) 763.9079
 brian.leung@kkr.com
 
-Changing Preferences in Direct Lending�������������������������������������������������������������������������������������������������������������������������������������������������������������� 36
-Deconglomeratization����������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������40
-Experiences Over Things��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������42
-Central Bank Normalization������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������ 44
+Changing Preferences in Direct Lending 36
+Deconglomeratization40
+Experiences Over Things42
+Central Bank Normalization 44
 
-SECTION III: RISKS/HEDGING���������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+SECTION III: RISKS/HEDGING
 
-Dependence on Technology and Financial Earnings �������������������������������������������������������������������������������������������������������������������� 46
-A Very Optimistic Implied Default Rate�������������������������������������������������������������������������������������������������������������������������������������������������������������������� 47
-Stock/Bond Correlations Reverse�������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������� 49
-Buying Volatility/Hedges May Make Sense (Finally!) ������������������������������������������������������������������������������������������������������������������50
-Social and Reputational Issues Will Remain Tail Risks in 2018����������������������������������������������������������������������������������51
+Dependence on Technology and Financial Earnings  46
+A Very Optimistic Implied Default Rate 47
+Stock/Bond Correlations Reverse 49
+Buying Volatility/Hedges May Make Sense (Finally!) 50
+Social and Reputational Issues Will Remain Tail Risks in 201851
 
-SECTION IV: CONCLUSION���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+SECTION IV: CONCLUSION
 Main Office
 Kohlberg Kravis Roberts & Co. L.P.
 9 West 57th Street
@@ -76,12 +76,12 @@ New York, New York 10019
 + 1 (212) 750.8300
 COMPANY Locations
 Americas New York, San Francisco,
-Menlo Park, Houston, Orlando, São Paulo
+Menlo Park, Houston, Orlando, So Paulo
 Europe London, Paris, Dublin, Madrid,
 Luxembourg Asia Hong Kong, Beijing,
 Shanghai, Singapore, Dubai, Riyadh,
 Tokyo, Mumbai, Seoul Australia Sydney
-© 2018 Kohlberg Kravis Roberts & Co. L.P.
+ 2018 Kohlberg Kravis Roberts & Co. L.P.
 KKR INSIGHTS: GLOBAL MACRO TRENDS
 All Rights Reserved.
 
@@ -89,21 +89,23 @@ All Rights Reserved.
 Can Get What You Need
 As we are poised to enter the 104th month of economic expansion
 amidst the second longest bull market on record in the United
-States, it is definitely harder to get ‘what you want’ when it comes
+States, it is definitely harder to get what you want when it comes
 to uncovering new and compelling investment opportunities.
 Credit spreads are tight, margins are elevated, volatility is low,
 and valuations are full in
 many instances. We are
+
 also adding stimulus to
-You can’t always get what you
+You cant always get what you
 the U.S. economy at a time
-want; but…you get what you need.
+want; butyou get what you need.
 when it probably is not
+
 needed. The good news,
 THE ROLLING STONES
 however, is that our work
 shows that investors can
-still ‘get what they need’ in
+still get what they need in
 order to generate returns in excess of their liabilities. A major
 underpinning to our global macro and asset allocation viewpoint
 in 2018 is that the current investing environment in many ways
@@ -119,13 +121,13 @@ across many parts of the global markets, we believe.
 INSIGHTS: GLOBAL MACRO TRENDS
 
 As we are poised to enter the 104th month of economic expansion amidst the second longest bull market on record in the United
-States1, it is definitely harder to get ‘what you want’ when it comes
+States1, it is definitely harder to get what you want when it comes
 to uncovering new and compelling investment opportunities. Indeed,
 spreads are tight, margins are higher, volatility is low, and valuations
 are full in many instances. We are also adding stimulus to the U.S.
 economy at a time when it probably is not needed.
 The good news, however, is that our work shows that investors can
-still ‘get what they need’ in order to generate returns in excess of
+still get what they need in order to generate returns in excess of
 their liabilities. A major underpinning to our global macro and asset
 allocation viewpoint in 2018 is that the current investing environment
 in many ways increasingly feels like the late 1990s. Indeed, as we
@@ -147,7 +149,7 @@ Our Asset Allocation Work Still Points to Equities Over Credit in
 2018 When the KKR Global Macro & Asset Allocation team was first
 established in 2011, our initial big asset allocation call was to suggest that an investor could own Credit, High Yield in particular, and
 earn equity-like returns. Today, our top-down forecast shows that
-Liquid Credit – depending on the specific flavor – will earn three to
+Liquid Credit  depending on the specific flavor  will earn three to
 six percent in 2018, while many Equities could earn seven percent to
 13% this year. No doubt, Equities have more volatility inherent in their
 composition, but rates appear too low and spreads in Credit appear
@@ -185,7 +187,7 @@ in rate forecasts are noteworthy, in our view, as one thinks about
 asset allocation, sector positioning, and market volatility. See below
 for details, but we enter 2018 with a massive underweight to government bonds. For those with a penchant for pair trades, consider EM
 Sovereign Debt over developed market equivalent paper, German
-bunds in particular. Our proprietary model suggests that the ‘normal’
+bunds in particular. Our proprietary model suggests that the normal
 rate for the bund is closer to 140 basis points versus its current yield
 of 46 basis points. In the U.S., we see less of a mismatch, but our
 3.00% forecasted year-end yield is up from 2.75% previously and
@@ -211,7 +213,7 @@ been a lot of capital raised in the marketplace to meet the opportunity
 about which we have been speaking, particularly in the small deal
 size universe and in Europe (where we think that there are now more
 than 70 Direct Lending funds, many multiples of where we were just
-a few years ago). There has also been less supply from M&A recently. So, that’s the bad news. The good news is that we are seeing
+a few years ago). There has also been less supply from M&A recently. So, thats the bad news. The good news is that we are seeing
 more and compelling opportunities in other areas of Private Credit,
 including the Asset-Based Finance part of the market. As we detail
 below, we like this opportunity set today, as we view it as one of our
@@ -220,16 +222,16 @@ the lowest rating within the commercial mortgage debt stack), driven
 by retention rules that favor investors with long-duration capital. So,
 
 as we detail below, we think now is the time to potentially tilt a little
-more towards Asset-Based Finance than Direct Lending in one’s asset allocation framework.
+more towards Asset-Based Finance than Direct Lending in ones asset allocation framework.
 Continued High Conviction Theme: Buy Complexity, Sell Simplicity As we mentioned earlier, our base view is that market conditions are more akin to late-1990s than to the mid-2000s. Key to
 our thinking is that today, similar to what we saw in the 1998-2000
 period, investors are willing to pay very high multiples for growth,
 both actual and potential. On the other hand, they feel uncomfortable holding positions that are currently underperforming or might
 have unprofitable subsidiaries or lines of business. As part of our
-‘Buy Complexity’ thesis, we are currently constructive on certain
+Buy Complexity thesis, we are currently constructive on certain
 MLPs, CCC-rated credits, and European Financials as well as a select
-number of beaten down Industrials, Healthcare, and Retail companies. On the other hand, many Growth companies – particularly on
-the private side of the ledger – appear fully valued; hence, we carry
+number of beaten down Industrials, Healthcare, and Retail companies. On the other hand, many Growth companies  particularly on
+the private side of the ledger  appear fully valued; hence, we carry
 a 500 basis point underweight to Growth Investing within the Private
 Equity sub-segment of our target asset allocation. On the credit side,
 European High Yield, which now has a yields lower than the dividend
@@ -244,15 +246,15 @@ asset classes that we detail below in Section I.
 Continued High Conviction Theme: Experiences Over Things We see
 a secular shift towards global consumers willing to spend more on
 experiences than on things these days. Leisure, wellness, and beauty
-represent important growth categories, all of which appear to be taking share from traditional ‘things.’ Our view is that mobile shopping
+represent important growth categories, all of which appear to be taking share from traditional things. Our view is that mobile shopping
 and online payments are only accelerating this trend and our recent
 travels lead us to believe that this shift is occurring in both developed
-and developing countries. On the other hand, the work we lay out below shows that ‘goods’ inflation has actually been negative on a yearover-year basis for the past 19 consecutive quarters and negative for
+and developing countries. On the other hand, the work we lay out below shows that goods inflation has actually been negative on a yearover-year basis for the past 19 consecutive quarters and negative for
 53 of the last 72 quarters2 since 2000. Not surprisingly, we view this
 deflationary pressure as a secular, not cyclical, issue for corporate
 profitability in several important parts of the global economy.
 Continued Theme: Our Paradigm Shift Framework Still Suggests
-a Different Kind of ‘Political Bull’ Market Has Arrived Last year
+a Different Kind of Political Bull Market Has Arrived Last year
 my colleague Ken Mehlman and I argued that coming public policy
 changes would be a market tailwind for most Equities (see Outlook
 for 2017: Paradigm Shift, January 2017), but for investors to watch
@@ -272,11 +274,11 @@ will soon look for new ways to spur infrastructure spending. Regulations have be
 in 2018. We also advise investors to anticipate even more scrutiny
 around trade and foreign direct investment in the U.S, the U.K., and
 other countries dealing with nationalistic movements. Finally, as we
-saw in this past year’s exposure of misconduct by leaders in media, government, entertainment, and business, the Internet’s radical
+saw in this past years exposure of misconduct by leaders in media, government, entertainment, and business, the Internets radical
 transparency means more previously hidden personal and corporate
-misbehavior could be unearthed. These ‘discoveries’ will reinforce
-public distrust in many institutions, exposing organizations to heightened reputational and profitability risk. As such, investors – more
-than ever – need to diligence the governance, cultures, and potential
+misbehavior could be unearthed. These discoveries will reinforce
+public distrust in many institutions, exposing organizations to heightened reputational and profitability risk. As such, investors  more
+than ever  need to diligence the governance, cultures, and potential
 reputational liabilities of companies in which they invest.
 So, what do these high level macro investment themes mean for our
 specific target asset allocation recommendations this year? We note
@@ -285,8 +287,8 @@ We are reducing our Global Government Bond exposure back down
 to three percent from six percent. As such, we are now a full 17%
 below our benchmark, which represents a massive underweight versus
 our 20% benchmark allocation. In both the U.S. and Europe, we forecast benchmark 10-year government bonds to generate losses of approximately two percent in 2018. Not surprisingly, this underweight
-is our largest asset allocation ‘bet’ in 2018. At current levels, our
-base view is that global government bonds can act neither as ‘shock absorbers’ nor as meaningful income producers. Already, we note that the
+is our largest asset allocation bet in 2018. At current levels, our
+base view is that global government bonds can act neither as shock absorbers nor as meaningful income producers. Already, we note that the
 current 5-year trailing Sharpe ratio for U.S. long-term government
 bonds is 0.3, a 35-year low. Within our tiny three percent allocation,
 our advice is to allocate towards medium-duration local sovereign
@@ -302,7 +304,7 @@ now on par with many long-duration, fixed income assets in both
 Europe and Asia. Second, we think increasing Cash exposure gives
 us some additional flexibility to lean in if and when market conditions
 turn bumpy, which we think they might in the second half of 2018 as
-central banks’ posture changes amidst a synchronous global recovery. Third, we want to start to bring down the beta of the portfolio at
+central banks posture changes amidst a synchronous global recovery. Third, we want to start to bring down the beta of the portfolio at
 this point in the cycle.
 Within Public Equities and Private Equity, we target an overweight
 position in Asia. See Exhibit 5 for details, but we hold a two hundred basis point overweight to both developed Asia (i.e., Japan) and
@@ -345,8 +347,8 @@ regulatory environment.
 We are boosting our Energy/Infrastructure allocation to seven
 percent from five percent and a benchmark of two percent. With oil
 prices finally stabilizing, we are now seeing more public and private
-resource companies selling ‘non-core’ assets at decent prices. In
-many instances these properties are producing assets that act somewhat as a ‘bond in the ground’ for investors, generating high singledigit cash-on-cash returns. Moreover, there is often the potential for
+resource companies selling non-core assets at decent prices. In
+many instances these properties are producing assets that act somewhat as a bond in the ground for investors, generating high singledigit cash-on-cash returns. Moreover, there is often the potential for
 development and efficiency upside, which can lead to a total return in
 the mid-teens in many instances. On the Infrastructure side, we also
 have a more constructive view, favoring areas such as mid-stream
@@ -355,7 +357,7 @@ flows as well as the potential for restructuring and/or divestitures.
 Overall, if we are right that governments around the world are now
 targeting improving growth in the real economy, not just boosting
 financial assets via monetary stimulus, then Real Assets should be a
-bigger part of one’s portfolio on a go-forward basis, we believe.
+bigger part of ones portfolio on a go-forward basis, we believe.
 
 INSIGHTS: GLOBAL MACRO TRENDS
 
@@ -365,8 +367,8 @@ First, we are trimming our long-held Leveraged Loan position to three
 percent from four percent. True, our 300 basis point position looks
 quite optimistic, compared to a benchmark weight of zero. However,
 by starting to trim our position weighting, we do want to suggest that
-even Levered Loans have gotten more expensive—and now with less
-compelling terms—at a later time in the cycle within our Liquid Credit
+even Levered Loans have gotten more expensiveand now with less
+compelling termsat a later time in the cycle within our Liquid Credit
 universe. Previously, we have viewed Levered Loans as one of our
 safe haven assets. Meanwhile, despite lagging performance of late,
 we are adding that 100 basis points to our Distressed/Special Situations allocation, boosting it to three hundred basis points from two
@@ -376,7 +378,7 @@ One can see this in Exhibit 85. However, the positive impact of quantitative eas
 meanwhile, currently loose credit underwriting standards are already
 leading to capital misallocation in the corporate sector, we believe.
 Also, the recent changes around interest deductibility could accrue
-to this product area’s benefit. If we are right about these trends, then
+to this product areas benefit. If we are right about these trends, then
 the backdrop for Distressed/Special Situations is likely to reward
 investors handsomely on a 12-36 month basis.
 On the currency front, we think that, while the U.S. dollar is in
@@ -565,33 +567,33 @@ December 31, 2017. Source: KKR Global Macro & Asset Allocation (GMAA).
 Importantly, though, to be successful as an investor in 2018, one
 will need to be well versed beyond just trends in the global capital
 markets. Said differently, we also believe investors must watch for
-new controversies and developments involving key political ‘hotspots’
+new controversies and developments involving key political hotspots
 such as trade in 2018. Indeed, we expect a more confrontational tone
 between the U.S. and China around trade and intellectual property
 (IP). NAFTA also has the potential to become a worsening friction
 point in 2018, with the risk of even more disruption depending on
 how the Mexican election unfolds. However, President Trump is
-no ideologue. His rhetoric, often in service of negotiating a ‘better
-deal’, might differ from actual policy outcomes, and his approach can
+no ideologue. His rhetoric, often in service of negotiating a better
+deal, might differ from actual policy outcomes, and his approach can
 change based on other geopolitical events.
 However, political saber rattling will not always be a negative. In fact,
 we also believe that intensifying rivalries and geopolitical events may
 also provide discrete upsides to certain trade dynamics, which could
-actually be good for markets at times this year. Indeed, it was actually North Korea’s nuclear tests this past year that took the pressure
+actually be good for markets at times this year. Indeed, it was actually North Koreas nuclear tests this past year that took the pressure
 off the US-South Korea FTA renegotiation. Similarly, a more confrontational dynamic with Beijing may eventually prove positive for U.S.
 trade relations with other Asian powers.
 
-Looking at the bigger picture, we see today’s set up as one of mixed
+Looking at the bigger picture, we see todays set up as one of mixed
 macro signals. One the one hand, we note that:
-• Traditional valuation metrics for many liquid global indices generally appear full, particularly on the fixed income side. Meanwhile,
+ Traditional valuation metrics for many liquid global indices generally appear full, particularly on the fixed income side. Meanwhile,
 on the equity side, market proxies for both Private and Public
 Growth investments seem to be trading at valuations that could
 lead to disappointing results in the future, we believe.
-• Our forward-looking returns at the aggregate asset class level are
+ Our forward-looking returns at the aggregate asset class level are
 collectively as low as they have been since we began publishing them at KKR (see Section I for details). Peak margins, full
 valuations, and low rates are all key drivers of our more modest
 forward-looking forecasts, which we detail in Exhibit 70.
-• We are adding stimulus to the U.S. economy at a time when it is
+ We are adding stimulus to the U.S. economy at a time when it is
 already performing quite well. Indeed, there is a growing risk that
 stronger-than-expected growth forces the Fed into action, particularly given low unemployment, increasing capital expenditures, and
 elevated financial asset prices. Consistent with this viewpoint, we
@@ -599,7 +601,7 @@ have revised upward our forecast for both short- and long-term
 rates in the United States for the remainder of this cycle (see
 below for details).
 On the other hand, our work below also shows that:
-• Both cross-asset and intra-asset correlations have plummeted,
+ Both cross-asset and intra-asset correlations have plummeted,
 and the case for active management to deliver significant alpha
 relative to passive investing has rarely been better. If we are
 right, then this backdrop could meaningfully offset the lower overall expected returns we are forecasting in many instances.
@@ -614,14 +616,14 @@ Said differently, we still think
 that thoughtful asset allocation,
 sound security selection,and
 tactical hedges will allow
-investors to get what they ‘need’
+investors to get what they need
 in terms of returns.
 
-• Our proprietary economic models are still showing not only solid
+ Our proprietary economic models are still showing not only solid
 growth for the next 12-18 months but also that the cycle may
 extend for a bit beyond our original base case, which called for a
 2019 economic slowdown in the U.S.
-• Even at this later stage of the current bull market, several sizeable parts of the global capital markets appear fairly to attractively priced, given ongoing investor dissatisfaction with complexity
+ Even at this later stage of the current bull market, several sizeable parts of the global capital markets appear fairly to attractively priced, given ongoing investor dissatisfaction with complexity
 and/or fear of value destruction caused by rapid technological
 change. Financials, in particular, still seem to be priced attractively, in our view.
 
@@ -630,18 +632,18 @@ INSIGHTS: GLOBAL MACRO TRENDS
 Not surprisingly, within the macro construct we are describing, our
 advice is to definitely tilt away from things that seem expensive on
 both an absolute and relative basis (e.g., European High Yield and
-Growth Equity) and lean in towards areas where a complexity discount accrues to one’s favor, including Emerging Markets, Opportunistic Liquid Credit, Private Equity, Asset-Based Finance, and Real
+Growth Equity) and lean in towards areas where a complexity discount accrues to ones favor, including Emerging Markets, Opportunistic Liquid Credit, Private Equity, Asset-Based Finance, and Real
 Assets with Yield and Growth. We also favor Cyclicals over Defensives on a global basis. As we showed earlier, valuation disparities
 today are as extreme as we have seen since the late 1990s; moreover, Sharpe ratios for U.S. stocks and traditional multi-asset class
 portfolios appear to be at unsustainably high levels (Exhibits 6 and 7).
-So, we are betting on some mean reversion to ‘get what we need’
+So, we are betting on some mean reversion to get what we need
 in 2018. History rarely repeats itself, but it does often rhyme. In our
 view, now is again one of those times.
 EXHIBIT 6
 
 EXHIBIT 7
 
-…A 60/40 Portfolio (60% Equity 40% Government Bonds)
+A 60/40 Portfolio (60% Equity 40% Government Bonds)
 Has an Even Higher Risk Adjusted Return Ratio of 1.8.
 We Also Expect Some Performance Mean Reversion in
 this Area as Well, Particularly If Bond Prices Lag
@@ -652,7 +654,7 @@ So, as we enter 2018, our call to action is still to largely stay invested, albe
 call last year, when we were underweight Cash). Said differently, we
 still think that thoughtful asset allocation, sound security selection,
 and tactical hedges (which we describe in more detail below) will
-allow investors to get what they ‘need’ in terms of returns. However,
+allow investors to get what they need in terms of returns. However,
 we think that after a fast start to the year (which could enjoy strong
 EPS revisions, M&A activity, and buyback announcements), the second half of 2018 could prove to be a more challenging period.
 
@@ -661,7 +663,7 @@ as at December 31, 2017. Source: Shiller data http://www.econ.yale.
 edu/~shiller/data.htm, Bloomberg, KKR Global Macro & Asset Allocation
 analysis.
 
-U.S. Equity Risk-Adjusted Returns Are Now Touching 17Year Highs; We View this Performance as Unsustainable…
+U.S. Equity Risk-Adjusted Returns Are Now Touching 17Year Highs; We View this Performance as Unsustainable
 S&P 500 Rolling 5-Year Annualized Risk Adjusted Returns
 
 Ratio of Returns / Volatility
@@ -681,7 +683,7 @@ on both an absolute and relative
 basis (e.g., European High Yield
 and Growth Equity) and lean in
 towards areas where a complexity
-discount accrues to one’s favor,
+discount accrues to ones favor,
 including Emerging Markets, Opportunistic Liquid Credit, Private
 Equity, Asset-Based Finance, and
 Real Assets with Yield and Growth.
@@ -736,14 +738,14 @@ though we see some notable contrasts versus 2017, particularly in
 what is driving growth across the various regions where KKR invests
 as a firm. Specifically, as we detail below, many of the drivers of
 our U.S. model are now becoming much more dependent on financial conditions, including net worth and credit spreads. In 2017, by
-comparison, almost all of the model’s indicators, both economic and
+comparison, almost all of the models indicators, both economic and
 financial, were positive, underscoring the breadth and easy comparisons each input faced last year. We also expect the Goods segment
 of the U.S. economy to outperform Services in 2018. This viewpoint
 represents a change in our thinking, but it is consistent with our
 forecast for stronger capital expenditures as well as ongoing growth
 In Europe, meanwhile, our quantitative model, whose outputs we
 detail below, suggests that central bank policy remains the single
-largest driver of GDP growth. We anticipate that the European Central Bank (ECB) will remain quite dovish in 2018, given that Europe’s
+largest driver of GDP growth. We anticipate that the European Central Bank (ECB) will remain quite dovish in 2018, given that Europes
 unemployment rate is still quite elevated relative to the U.S. (8.8%
 in the Eurozone versus 4.1% in the U.S.). Finally (and as we show
 below in Exhibit 9), China remains the most influential driver of global
@@ -811,11 +813,11 @@ McNellis remains upbeat on growth again in 2018. Specifically, his
 bottom-up estimate for 2018 U.S. GDP is 2.7%, which is a tick above
 consensus of 2.6%, and at the same level suggested by our proprietary statistical model. In terms of what is driving his thinking, we
 would note the following:
-• We see the backdrop for equipment capex, inventories, net exports, and government spending all potentially improving in 2018.
+ We see the backdrop for equipment capex, inventories, net exports, and government spending all potentially improving in 2018.
 Importantly, however, we envision Personal Consumption Expenditures (which are 70% of GDP) on a slowing trend, particularly
-given the recent decline in the U.S. consumers’ savings rate all
+given the recent decline in the U.S. consumers savings rate all
 the way back down towards 2.9% (Exhibit 123).
-• We estimate the 2018 GDP tailwind from tax reform to 1) be
+ We estimate the 2018 GDP tailwind from tax reform to 1) be
 modest (approximately 40 basis points) and 2) be already largely
 incorporated into our proprietary leading indicator variables such
 as equity prices, credit spreads, business confidence, consumer
@@ -848,7 +850,7 @@ regions that the KKR Global Macro & Asset Allocation team consistently tracks.
 Our GDP leading indicator is a combination of eight macro inputs that in
 combination we think have significant explanatory power regarding the U.S.
 growth outlook. Data as at December 31, 2017. Source: Federal Reserve,
-Bureau of Labor Statistics, Nat’l Association of Realtors, ISM, Conference
+Bureau of Labor Statistics, Natl Association of Realtors, ISM, Conference
 Board, Bloomberg, KKR Global Macro & Asset Allocation analysis.
 
 EXHIBIT 12
@@ -891,8 +893,8 @@ as of June
 
 2018e vs.
 
-Core Inflation Trends Remain Soft, Dominated by ‘Supply
-Side’ Driven Factors Such as Healthcare, Education and
+Core Inflation Trends Remain Soft, Dominated by Supply
+Side Driven Factors Such as Healthcare, Education and
 U.S. CPI, Y/y, % Change
 
 Household Wealth
@@ -918,7 +920,7 @@ Federal Reserve, Bureau of Labor Statistics, National Association of
 Realtors, ISM, Conference Board, Bloomberg, KKR Global Macro & Asset
 Allocation analysis.
 
-Healthcare inﬂation Education inﬂation Shelter inﬂation
+Healthcare ination Education ination Shelter ination
 
 Data as at November 30, 2017. Source: Bureau of Economic Analysis,
 Haver Analytics.
@@ -951,9 +953,9 @@ Data as at January 5, 2018. Source: Bureau of Labor Statistics, Haver
 Analytics.
 
 Meanwhile, our Fed Funds outlook continues to envision rate hikes
-above what the market is pricing, but below the Fed ‘dots plot,’
+above what the market is pricing, but below the Fed dots plot,
 which shows the projections of all the members of the Federal Open
-Market Committee. Specifically, Dave’s view is that the Fed hikes
+Market Committee. Specifically, Daves view is that the Fed hikes
 three times in 2018 and two more times in 2019. Importantly, though,
 our forecast is meaningfully above current futures market pricing,
 which embeds just two hikes in 2018 and just a 50% chance of any
@@ -972,13 +974,13 @@ EXHIBIT 16
 
 Putting All the Pieces Together, We Expect Headline CPI
 of 2.2% in 2018, Just a Tick Above Consensus of 2.1%
-Full-Year 2018e U.S. CPI Inﬂation
+Full-Year 2018e U.S. CPI Ination
 
 EXHIBIT 18
 
 Our Fed Funds Outlook Continues to Envision Rate Hikes
 Above What the Market Is Pricing, but Below the Fed
-‘Dots Plot’
+Dots Plot
 Current Expected Fed Funds Rates
 0.70% 0.625%
 
@@ -1019,8 +1021,8 @@ Services
 
 Health Care
 
-* ‘Core core’ goods = goods ex food, energy, tobacco, and healthcare
-commodities. ‘Core core’ services = services ex shelter, healthcare
+* Core core goods = goods ex food, energy, tobacco, and healthcare
+commodities. Core core services = services ex shelter, healthcare
 services, education, and telecom. Data as at November 30, 2017. Source:
 Bureau of Labor Statistics, Haver Analytics, KKR Global Macro & Asset
 Allocation analysis.
@@ -1029,7 +1031,7 @@ INSIGHTS: GLOBAL MACRO TRENDS
 
 2019 (Cycle Peak)
 
-Data as December 20, 2017. ‘Market’ expectation is as per interest rate
+Data as December 20, 2017. Market expectation is as per interest rate
 forward market pricing. Source: Bloomberg, KKR Global Macro & Asset
 Allocation analysis.
 
@@ -1040,7 +1042,7 @@ EXHIBIT 22
 We Are Well Above the Market in Cumulative Expected
 Fed Hikes in 2018 and 2019
 
-Eurozone Industrials’ Employment Expectations in the
+Eurozone Industrials Employment Expectations in the
 Eurozone Are Now at All Time Highs
 
 Number of Fed Hikes Expected Thru 2019
@@ -1049,7 +1051,7 @@ Industrials Employment Expectations, Next Three
 Months, % of Balance Positive Minus Negative
 Respondents
 
-Industrials ﬁrms
+Industrials rms
 are hiring
 aggresively
 
@@ -1064,7 +1066,7 @@ of two percent growth, compared to a consensus estimate of 2.1%.
 Importantly, this growth is finally being shared across almost the
 entire EZ area. In fact, the cross-country variation in GDP growth
 rates within the Eurozone is now at or near the lowest point since its
-founding, aided by the ECB’s aggressive quantitative easing. One can
+founding, aided by the ECBs aggressive quantitative easing. One can
 see this improvement in Exhibit 21. We are also seeing more sectors
 participate in the recovery. Even Eurozone industrials firms, which
 have suffered from an energy cost disadvantage versus their U.S.
@@ -1078,12 +1080,12 @@ Divergence, Eurozone, %
 
 Data as at 3Q17. Source: Eurostat, Haver Analytics.
 
-What is fueling this strong momentum? Without a doubt, the ECB’s
+What is fueling this strong momentum? Without a doubt, the ECBs
 QE has been a key driver. This heavy reliance on the ECB may give
 pause to some investors (given the ECB is now in the midst of tapering), but we believe that the outlook is actually still quite constructive. Key to our thinking is that, while the rate of change is slowing,
 the ECB is still on track to add about a third of a trillion euros to its
 balance sheet in 2018. One can see this in Exhibit 23. Moreover, as
-we show in Exhibit 24, the lion’s share of the buying will still occur
+we show in Exhibit 24, the lions share of the buying will still occur
 in the sovereign market, which should be supportive of an ongoing
 technical bid in the market in the first half of 2018.
 EXHIBIT 23
@@ -1096,7 +1098,7 @@ Cross-country
 variation in GDP
 growth rates is falling
 
-Liquidity (LTROs…)
+Liquidity (LTROs)
 360bn Addition In 2018
 
 Sovereign Bonds
@@ -1157,7 +1159,7 @@ Memo: 2018e
 
 Very high bond yield spread
 relative to only moderate
-inﬂation diﬀerential
+ination dierential
 
 0% to +0.5% to +1.0% to +1.5% to
 +0.5% +1.0%
@@ -1195,7 +1197,7 @@ Asset Allocation analysis.
 27, actually points to a deceleration in Eurozone growth to 1.6% in
 2018, from above two percent in 2017. Last year, by comparison,
 our model was well above consensus growth forecast for the entire
-year. As we look through the model’s drivers of growth for this
+year. As we look through the models drivers of growth for this
 year, the major drags come from a strengthening euro currency and
 a still-weak housing recovery. However, the qualitative indicators
 that Aidan and the KKR European Real Estate team monitor suggest
@@ -1203,7 +1205,7 @@ that the housing recovery will not actually be as weak as our model
 assumes; also, if the dollar bounces in 2018 as we suspect it might,
 some of its increase will likely be at the expense of the euro, which
 could be good for local European exports in the near term. As such,
-we feel comfortable with our two percent GDP call – but will be
+we feel comfortable with our two percent GDP call  but will be
 watching this area of the economy particularly closely. On inflation,
 we think there is more weakness ahead, or at least through the first
 half of 2018. Specifically, as we show in Exhibit 29, we forecast inflation to fall to 1.2% in March 2018; thereafter, however, we do expect
@@ -1242,7 +1244,7 @@ EXHIBIT 29
 
 We Expect a Weaker Eurozone Inflation Outlook in the
 Immediate Future, but then Rising by the End of 2018
-Headline CPI Inﬂation With Forecasts In Blue
+Headline CPI Ination With Forecasts In Blue
 
 1.5%1.4%
 
@@ -1305,7 +1307,7 @@ U.K risk assets.
 
 Nominal GDP in China fell
 68% from 2011 to 2015; as such,
-China’s economy has already
+Chinas economy has already
 crashed, in our view.
 
 INSIGHTS: GLOBAL MACRO TRENDS
@@ -1340,7 +1342,7 @@ growth could lift local export demand in China, we believe.
 EXHIBIT 33
 
 Nominal GDP in China Fell 68% from 2011 to 2015; as
-Such, China’s Economy Has Already Crashed, in Our
+Such, Chinas Economy Has Already Crashed, in Our
 
 China: Housing: Months Inventory
 
@@ -1360,9 +1362,9 @@ We Do Not Expect a 2014/2015 Type Hard Landing
 
 China: PPI, Y/y, %, LHS
 
-‘new economy’ sectors are booming with fresh sources of funding,
+new economy sectors are booming with fresh sources of funding,
 more innovation, and job creation, which are all collectively helping to
-offset weaknesses in stagnant parts of the ‘old economy.’
+offset weaknesses in stagnant parts of the old economy.
 
 By Shrinking Capacity in the Industrial Sector, China
 Has Enabled Profits to Increase; This Development Is an
@@ -1376,7 +1378,7 @@ Importantly, our recent trip to China leads us to believe that the
 overall pace of growth feels more sustainable, a goal that the government again recently underscored as a key priority. There are several
 factors that influence our thinking. First, industries that faced sales
 downturns related to corruption investigations now benefit from easier year-over-year comparisons. Second, Chinese locals feel not only
-more confident in the government’s command of the domestic economy, but also the country’s role in the global economy, particularly as
+more confident in the governments command of the domestic economy, but also the countrys role in the global economy, particularly as
 the U.S. shifts towards more of a nationalistic agenda. Finally, many
 
 TSF + Local Gov Bonds
@@ -1430,16 +1432,16 @@ Brazilian Outlook My colleague Brian Leung and I are forecasting
 2.5% real GDP growth for Brazil this year, compared to just 0.7%
 growth in 2017 and a consensus forecast of 2.5% for 2018. This
 re-acceleration is a big deal, in our view. Indeed, after the 11-quarter
-long recession, Brazil’s economy is finally gaining traction (Exhibit
+long recession, Brazils economy is finally gaining traction (Exhibit
 39). Our call for a cyclical recovery will be underpinned by sharply
 lower interest rates, declining inflation, higher real wages, and a
 continued rebound in consumer/business confidence.
 EXHIBIT 39
 
-allow the People’s Bank of China to keep the benchmark interest rate
+allow the Peoples Bank of China to keep the benchmark interest rate
 steady in the coming year.
 
-We Believe Brazil’s Real GDP Could Grow 2.5% Yearover-Year in 2018, Which Would Represent a Notable
+We Believe Brazils Real GDP Could Grow 2.5% Yearover-Year in 2018, Which Would Represent a Notable
 Improvement
 Brazil Real GDP Growth, Y/y % Change
 
@@ -1464,17 +1466,17 @@ China: CPI Y/y
 
 Excluding Food & Energy
 
-Rising core inﬂation…
+Rising core ination
 
 Data as at December 31, 2017. Source: Bloomberg, KKR Global Macro &
 Asset Allocation analysis.
 
-…but low headline on food prices
+but low headline on food prices
 
 Data as at November 30, 2017. Source: China National Bureau of
 Statistics, Haver Analytics.
 
-In terms of inflation, we think China headline inflation will trend upward towards core inflation’s higher level in 2018. This convergence
+In terms of inflation, we think China headline inflation will trend upward towards core inflations higher level in 2018. This convergence
 is noteworthy because, as we show in Exhibit 38, headline inflation
 has been running well below core inflation for quite some time. So,
 why will this finally happen? Our view is that food price inflation,
@@ -1483,14 +1485,14 @@ normalize this year, while higher oil prices could add another 35
 basis points to overall CPI in 2018, we believe.
 Overall, while we expect growth to cool in China, we do not expect
 a sharp deceleration, and while inflation will rise, it will remain
-within the government’s comfort zone. Macro prudential measures
+within the governments comfort zone. Macro prudential measures
 will remain in place to restrain credit growth in the shadow banking
 sector and control capital outflow pressures, and as such, it should
 
 INSIGHTS: GLOBAL MACRO TRENDS
 
 After the 11-quarter long recession,
-Brazil’s economy is finally gaining
+Brazils economy is finally gaining
 traction. Our call for a cyclical
 recovery will be underpinned
 by sharply lower interest rates,
@@ -1503,11 +1505,11 @@ in consumer/business confidence.
 EXHIBIT 42
 
 The 725 Basis Points of Central Bank Rate Cuts Since
-2016 Could Serve as a Major Tailwind for Brazil’s
+2016 Could Serve as a Major Tailwind for Brazils
 Economy in 2018
 Brazil Selic Rate, %
 
-As Reflected by Its CDS, Brazil’s Financial Conditions
+As Reflected by Its CDS, Brazils Financial Conditions
 Have Eased Considerably
 Brazil Financial Conditions Index
 
@@ -1532,12 +1534,12 @@ Selic Rate, %, RHS
 Consensus
 Expectations 13%
 
-In terms of inflation, we expect the headline IPCA inflation to stay benign in 2018, rising to ’just‘ 4.1% in 2018 from a low of 2.7% in 2017. In
+In terms of inflation, we expect the headline IPCA inflation to stay benign in 2018, rising to just 4.1% in 2018 from a low of 2.7% in 2017. In
 terms of specifics, we believe that the bulk of the inflation increase will
 likely be driven by food price inflation normalization after plummeting
 to negative 4.2% in 2017. While we are forecasting a notable increase
 in inflation, our 2018e inflation forecast of 4.1% will still be a full 40
-basis points below the central bank’s target of 4.5%. Importantly, with
+basis points below the central banks target of 4.5%. Importantly, with
 inflation expectations well anchored and the output gap still sizable, we
 believe the central bank can afford to keep the Selic rate near the record-low levels of seven percent throughout 2018. If we are right, then
 Brazilian financial conditions should remain accommodative, helping to
@@ -1545,7 +1547,7 @@ lower consumer debt servicing costs. One can see this in Exhibit 44.
 
 '12 '13 '14 '15 '16 '17 '18
 
-Brazil Inﬂation and Interest Rates Outlook
+Brazil Ination and Interest Rates Outlook
 
 Data as at December 31, 2017. Source: Bloomberg, KKR Global Macro &
 Asset Allocation analysis.
@@ -1574,7 +1576,7 @@ EXHIBIT 45
 Aggressive Monetary Easing Should Continue to Lower
 Consumer Debt Servicing Costs in Brazil
 
-Brazil’s Fiscal Fragility Remains the Biggest Risk to Our
+Brazils Fiscal Fragility Remains the Biggest Risk to Our
 Constructive Cyclical Outlook
 
 Debt Service Ratio and Interest Rate Levels, %
@@ -1589,11 +1591,11 @@ Data as at December 31, 2017. Source: Bloomberg, KKR Global Macro &
 Asset Allocation analysis.
 
 So, against an improving macro backdrop, what are the risks that
-investors should consider? Well for starters, Brazil’s fiscal fragility
-remains noteworthy. All told, Brazil’s public sector deficit is currently
+investors should consider? Well for starters, Brazils fiscal fragility
+remains noteworthy. All told, Brazils public sector deficit is currently
 a sizable 8.5% of GDP, which is a big reason why it is still running
 with twin deficits (fiscal and current account). Until there is notable
-improvement in these areas, the country’s public load will continue to
+improvement in these areas, the countrys public load will continue to
 worsen. Already, debt-to-GDP has surged to 74% of GDP, compared
 to 55% just three years ago (Exhibit 46).
 We also believe that current political distractions associated with
@@ -1661,7 +1663,7 @@ EXHIBIT 47
 The Earnings Yield on the S&P 500 Is Now Almost on Par
 With Yield on U.S. High Yield Bonds
 S&P 500, U.S. High Yield and UST Comparison
-U.S. HY Eﬀective Yield
+U.S. HY Eective Yield
 
 S&P 500 Earnings Yield
 
@@ -1765,16 +1767,16 @@ Leading Indicator (EGLI). We are using a lower organic growth estimate because w
 more cyclical components of consumer confidence, ISM and credit
 spreads, has already incorporated some boost/optimism from corporate tax reform (Exhibits 49 and 50, respectively).
 Meanwhile, we prefer to treat the impact of corporate tax reform as a
-separate and distinct earnings driver. To this end, we note that President Trump’s tax reform agenda provides the biggest potential boost to
-our EPS estimate. All told, we think that – with all its moving pieces –
+separate and distinct earnings driver. To this end, we note that President Trumps tax reform agenda provides the biggest potential boost to
+our EPS estimate. All told, we think that  with all its moving pieces 
 it could collectively add an additional $11.20 to 2018 EPS in 2018. We
 note the following inputs to our model:
-• Lower Corporate Tax Rate: Our 2018 base case incorporates a
+ Lower Corporate Tax Rate: Our 2018 base case incorporates a
 21% corporate tax rate. Previously, we had assumed the tax rate
 would fall to 25% from 35%. All told, we now estimate the gross
 boost to EPS is approximately $13-$14 in year one, though we caution folks that some notable portion of the gross tax benefit could
 quickly be competed away under certain potential scenarios.
-• One-time Tax on Foreign Cash and Earnings: U.S. multinationals
+ One-time Tax on Foreign Cash and Earnings: U.S. multinationals
 have accumulated approximately $2.6 trillion in foreign retained
 earnings, of which about $1.1 trillion is cash. As such, we esti-
 
@@ -1789,13 +1791,13 @@ year for the next eight years. However, we do note that the analyst
 community may opt to adjust their EPS figures for this item as a
 one-time charge and/or put the expense below the line. As such,
 we will continue to monitor and update our forecasts accordingly.
-• Repatriation / Buybacks: We assume that the aforementioned $1.1
+ Repatriation / Buybacks: We assume that the aforementioned $1.1
 trillion of accumulated cash earnings will be brought back onshore
 at a one-time tax rate of 15.5%. We then assume that 50% of the
 after-tax proceeds are used for share buybacks in the first year. If
 we are right, then this addition could add two to three dollars, we
 believe, to 2018 EPS.
-• Capping of Interest Expense Deductibility: Our base case assumes a capping of interest expense deductibility to 30% of
+ Capping of Interest Expense Deductibility: Our base case assumes a capping of interest expense deductibility to 30% of
 EBITDA for four years, then to 30% of EBIT thereafter. Under such
 a provision, the impact on overall EPS looks to be negligible. In
 fact, our work shows that less than five percent of U.S. companies
@@ -1804,7 +1806,7 @@ provision could be a material headwind for highly levered companies, in aggregat
 dollar to S&P 500 companies.
 So, when we bring it all together, our 2018 EPS forecast for the S&P
 500 is now $154, compared to our prior 2018 forecast of $141 (which
-included a more modest tax cut), a bottom’s-up consensus forecast of
+included a more modest tax cut), a bottoms-up consensus forecast of
 $148 (which we think will increase as sell-side analysts fully adjust for
 the new tax code), and a top-down consensus forecast of $153 (with a
 range of $145 to $164). Overall, we believe that we are more optimistic
@@ -1813,7 +1815,7 @@ in key areas such as revenue growth, operating leverage, etc.
 Importantly, embedded in the forecast is our belief that net profit margin
 will peak at a record 11.1% this year, which is higher than our original
 assumptions for both 2018 and 2017e (Exhibit 52). As one might expect,
-the lion’s share of the 2018 margin expansion will be driven by the
+the lions share of the 2018 margin expansion will be driven by the
 anticipated lower tax rate boost to EPS growth, not significant operating
 leverage at the business unit level. Thereafter, we do expect margins to
 decline modestly from such high levels as late-cycle pressures lead to
@@ -1887,7 +1889,7 @@ same period. So, with Technology margins already at 20-year highs
 (20%) and a full 1000 basis points higher than overall S&P 500 margins, any deterioration in technology company margins would have a
 disproportionate effect on overall S&P 500 net margins. This view
 is not our base one at the moment, but as we describe below in our
-Risks/Hedging section, we think Tech’s disproportionate contribution
+Risks/Hedging section, we think Techs disproportionate contribution
 to earnings growth does warrant investor attention.
 EXHIBIT 53
 
@@ -1930,7 +1932,7 @@ Data as at December 31, 2017. Source: Global Macro & Asset Allocation
 analysis.
 
 We Think the S&P 500 Can Trade Around a 18-19x P/E
-Multiple…
+Multiple
 S&P PRICE INDEX AT VARIOUS P/E AND EPS LEVELS
 
 Data as at December 31, 2017. Source: Global Macro & Asset Allocation
@@ -1953,16 +1955,16 @@ degradation is likely in 2018.
 With oil prices finally stabilizing,
 we are now seeing more public
 and private resource companies
-selling ‘non-core’ assets at decent
+selling non-core assets at decent
 prices. In many instances these
 properties are producing assets
-that act somewhat as a ‘bond
-in the ground’ for investors,
+that act somewhat as a bond
+in the ground for investors,
 generating high single-digit cashon-cash returns.
 
 INSIGHTS: GLOBAL MACRO TRENDS
 
-…Which Implies a 7-13% Total Return (Including
+Which Implies a 7-13% Total Return (Including
 Dividends)
 S&P TOTAL RETURN AT VARIOUS P/E AND EPS Y/Y LEVELS
 
@@ -2020,7 +2022,7 @@ EXHIBIT 58
 
 Longer Term, We See the Potential for Oil Price Upside
 as the Need to Sanction New Conventional Projects
-Reemerges and Services Prices Move Into Recovery…
+Reemerges and Services Prices Move Into Recovery
 Sanctioned Peak Capacity by Start Year and Country,
 Thousands of Barrels per Day
 
@@ -2059,7 +2061,7 @@ INSIGHTS: GLOBAL MACRO TRENDS
 
 EXHIBIT 61
 
-…And As Such, Our Base Case Reflects More Upside than
+And As Such, Our Base Case Reflects More Upside than
 the Expectation of the Forward Curve Longer Term
 WTI Forward Curve vs. KKR GMAA Base Case
 WTI Spot
@@ -2082,7 +2084,7 @@ Asset Allocation analysis.
 EXHIBIT 60
 
 Large Speculator Positioning in Crude Futures Is
-Extended, Triggering a Tactical ‘Sell’ Signal
+Extended, Triggering a Tactical Sell Signal
 CFTC: Crude (WTI+Brent) Large Speculators
 Net Long as a % of Total Open Interest
 
@@ -2111,7 +2113,7 @@ Deficit -0.25mb/d
 Deficit -1.00mb/d
 
 Many investment professionals
-— hungry to do deals — now
+ hungry to do deals  now
 appear to be over-paying for
 quality assets with stable cash
 flow streams; at the same time,
@@ -2148,14 +2150,14 @@ Consensus closer
 to 1.0mm Bbl/day
 in our view
 
-‘Predicted’ line is as per KKR GMAA regression model based on oil
+Predicted line is as per KKR GMAA regression model based on oil
 rig count and price trends. Data as at November 30, 2017. Source:
 Bloomberg, Baker Hughes, KKR Global Macro & Asset Allocation analysis.
 
-However, looking out longer-term, we think current futures pricing—
-which embeds prices hovering around $50—could ultimately prove
+However, looking out longer-term, we think current futures pricing
+which embeds prices hovering around $50could ultimately prove
 too pessimistic. The two important factors in our thinking are breakeven prices and shale productivity. Regarding break-even prices, the
-oil analysts we’ve surveyed tend to forecast current shale break-even
+oil analysts weve surveyed tend to forecast current shale break-even
 pricing to average around $40-50 per barrel, which we think explains
 why deferred oil futures assume prices stuck around that level. What
 we think the market could be missing however, is that break-even
@@ -2207,7 +2209,7 @@ Data as at December 31, 2017. Source: KKR Global Macro & Asset Allocation analys
 
 Interestingly though, when we extend the model from 0-12 months to
 24 months, the risk of recession increases materially. One can see
-this in Exhibit 65. We link the uptick in the model’s cautionary outlook
+this in Exhibit 65. We link the uptick in the models cautionary outlook
 in late 2019 and beyond to a structurally peaking U.S. dollar, a flattening yield curve, higher unit labor costs, and some reversion to the
 mean in both consumer confidence and home building expectations.
 
@@ -2228,13 +2230,13 @@ Data as at December 31, 2017. Source: KKR Global Macro & Asset Allocation analys
 INSIGHTS: GLOBAL MACRO TRENDS
 
 Importantly, irrespective of where we are in the cycle, we believe
-that – compliments of central bank intervention – the current prices
+that  compliments of central bank intervention  the current prices
 of many financial assets appear more cyclically elevated than current
 economic conditions might otherwise support. Indeed, as we show
 in Exhibit 67, the S&P 500 has been up for nine consecutive years,
 despite a U.S. economic recovery that has been lackluster by most
 standards. This performance feat by the U.S. equity market is quite
-extraordinary, as it has occurred only one other time on record – the
+extraordinary, as it has occurred only one other time on record  the
 1991-1999 period.
 EXHIBIT 66
 
@@ -2287,8 +2289,8 @@ Data as at January 2018. Source: National Bureau of Economic Research
 
 Importantly, irrespective of where
 we are in the cycle, we believe
-that – compliments of central
-bank intervention – the current
+that  compliments of central
+bank intervention  the current
 prices of many financial assets
 appear more cyclically elevated
 than current economic conditions
@@ -2320,12 +2322,12 @@ Before and During a Bear Market Since the 1960s (ex 1998)
 
 Performance on a monthly basis, peak to trough. PE Multiple as of
 nearest month end. Data as December 31, 2017. Source: Standard &
-Poor’s, Omega Advisors.
+Poors, Omega Advisors.
 
 Overall, though, as we peer
 around the corner today on
 what returns look like tomorrow,
-we can’t help but have a more
+we cant help but have a more
 conservative view. Indeed, our
 work around margins, multiples,
 and cycle duration all lead us
@@ -2409,7 +2411,7 @@ Daily Returns per Quarter, 2Q86-2017
 Clustered / macro
 
 Overall, though, as we peer around the corner today on what returns
-look like tomorrow, we can’t help but have a more conservative view.
+look like tomorrow, we cant help but have a more conservative view.
 Indeed, our work around margins, multiples, and cycle duration all
 lead us to forecast more modest forward returns for many asset
 classes, which one can see in Exhibit 70. We also believe that interest
@@ -2421,7 +2423,7 @@ which represents a noteworthy shift in our thinking.
 Data as at December 31, 2017. Source: Shiller data http://www.econ.yale.
 edu/~shiller/data.htm, Bloomberg.
 
-Diﬀerentiated / stock
+Dierentiated / stock
 picker's market
 
 1986 1989 1992 1995 1998 2001 20042007 2010 2013 2016
@@ -2473,7 +2475,7 @@ outperformance still has three to
 five years more of running room.
 
 #1: Emerging Markets Rules of the Road Suggest We Are Already
-Entering a ‘Mid-Cycle’ Phase of Recovery. Consistent with our
+Entering a Mid-Cycle Phase of Recovery. Consistent with our
 view that China has bottomed in nominal terms amidst tighter supply
 side reforms as well as increasing demand from EM consumers, our
 overall Emerging Markets model continues to send upbeat signals.
@@ -2486,22 +2488,22 @@ INSIGHTS: GLOBAL MACRO TRENDS
 Consistent with this view, our proprietary EM model, which we detail
 in Exhibit 75, continues to deliver mostly positive signals, albeit ones
 that are now more mid-cycle in nature. We note the following:
-• Valuation is now just neutral, no longer cheap. In fact, EM now
+ Valuation is now just neutral, no longer cheap. In fact, EM now
 trades at a 5.6 point discount to DM, which is attractive, but definitely less compelling than the 7.3 point discount that prevailed
 at the end of 2015 when this factor triggered a buy signal in our
-• When we do a simple DuPont analysis to decompose return on
+ When we do a simple DuPont analysis to decompose return on
 equity, our work shows that operating margins are finally improving across all of EM after a five-year bear market, which is now
 boosting return on equity. This notable improvement has led the
-ROE factor in our dashboard to send a ‘buy’ signal.
-• While the margin increase is broad-based by region, commodityrelated companies are driving the lion’s share of the upturn,
+ROE factor in our dashboard to send a buy signal.
+ While the margin increase is broad-based by region, commodityrelated companies are driving the lions share of the upturn,
 reinforcing our view that commodity prices must remain on a
 recovery trajectory for our EM dashboard to remain positive.
-• Meanwhile, when we look at the two other components of the DuPont analysis, our work shows that financial leverage across EM
+ Meanwhile, when we look at the two other components of the DuPont analysis, our work shows that financial leverage across EM
 is declining, while asset turnover remains essentially unchanged
 in recent quarters. Said differently, if ROE is going to improve the
 way we think it is, then margin expansion will most likely have to
 carry the day.
-• Another positive for Emerging Markets these days is that momentum has reasserted itself in both EM equity and FX. As has been
+ Another positive for Emerging Markets these days is that momentum has reasserted itself in both EM equity and FX. As has been
 the case for most of the period since September 2016, EM equities are outpacing DM on a year-over-year basis. Furthermore,
 FX momentum has improved, and we think prospects are good
 that FX will not be as much of an obstacle to EM equity returns in
@@ -2518,16 +2520,16 @@ reposition their portfolios.
 
 EXHIBIT 75
 
-EM Is Now Entering the ‘Mid-Cycle’ Phase of Its
+EM Is Now Entering the Mid-Cycle Phase of Its
 Recovery Wherein Relative Valuation Is No Longer
 Compellingly Cheap, but Momentum Has Turned and
 Fundamentals Are Improving
-‘RULE OF THE
+RULE OF THE
 
 Buy When ROE
 Is Stable or
 
-Valuation: It’s
+Valuation: Its
 Not Different
 This Time
 
@@ -2567,7 +2569,7 @@ can withstand macro shocks,
 including a tactical rebound in
 the dollar, along the way.
 
-EM now seems to be entering a more ‘mid-cycle’ phase of its recovery.
+EM now seems to be entering a more mid-cycle phase of its recovery.
 Valuation is no longer compellingly cheap, but equity and FX momentum
 have re-asserted themselves relative to DM. Maybe even more importantly,
 fundamentals are now improving, as manifested by rising ROEs, upward
@@ -2599,21 +2601,21 @@ Producer Crisis
 opportunity since 2011. Our top down view gave us high conviction
 that over-regulation of the banks as well as insufficient supply of
 capital would create a compelling void that would have to be funded
-by non-traditional lending. All told, we estimated that Wall Street’s
-balance sheets had shrunk the equivalent of five Morgan Stanley’s.
+by non-traditional lending. All told, we estimated that Wall Streets
+balance sheets had shrunk the equivalent of five Morgan Stanleys.
 The final underpinning of our thesis rests on the fact that overall
-Credit as an asset class appeared more attractive than Equities – and
+Credit as an asset class appeared more attractive than Equities  and
 with less volatility.
 Today, however, we see the environment much differently. Capital
 inflows into the space have intensified, traditional global wholesale
 banks are now taking more risks, and credit spreads are extraordinarily tight on both an absolute and relative basis for most asset
-classes. Also, M&A activity has – to date – not been as active as we
+classes. Also, M&A activity has  to date  not been as active as we
 would like, which is denting Direct Lending product supply.
 
 To be fair, we still see room for lucrative returns in this market,
 particularly at the large end of the market, but we do believe that the
 prudent approach at this point in the cycle is to dial back exposure.
-That’s exactly what we have been doing, as one can see in Exhibit 78.
+Thats exactly what we have been doing, as one can see in Exhibit 78.
 
 EXHIBIT 78
 
@@ -2672,8 +2674,8 @@ Illiquidity Premium
 As a Percentage of GDP, RHS
 
 Despite Increased Competition in the Direct
-Lending Market, the Illiquidity Premium Has – to
-Date – Remained Fairly Constant Across a Variety of
+Lending Market, the Illiquidity Premium Has  to
+Date  Remained Fairly Constant Across a Variety of
 Environments
 
 In Trillions of USD, LHS
@@ -2681,7 +2683,7 @@ In Trillions of USD, LHS
 Weighted Average Yield of Originated Senior Term Debt
 12-Month Average Yield of Traded Loans
 
-Data above represent the Financial Stability Board’s sixth annual
+Data above represent the Financial Stability Boards sixth annual
 monitoring exercise, covering data up to end-2015 from 28 jurisdictions,
 representing over 80% of global GDP. Data as at 2015. Source: FSB
 Global Shadow Banking Monitoring Report 2016.
@@ -2690,20 +2692,20 @@ On the other hand, as economic and financial conditions have improved,
 our desire to increase exposure in the Asset-Based Finance arena of
 Private Credit has actually grown. In particular, as book values have
 again begun to grow in the banking sector, publicly traded financial
-intermediaries have finally started to ‘reposition’ their portfolios, including selling performing hard assets with onerous capital charges as well
+intermediaries have finally started to reposition their portfolios, including selling performing hard assets with onerous capital charges as well
 as seeking out capital-relieving joint ventures with third party investors,
-including alternative asset managers. ‘Last mile‘ residential construction in areas such as Spain and Ireland has been a particular focus of
+including alternative asset managers. Last mile residential construction in areas such as Spain and Ireland has been a particular focus of
 ours of late within Asset-Based Finance. We also view Asset-Based
 Finance as an elegant play on our desire to lock in low-cost liabilities
-in today’s QE-driven market, allowing investors to earn above average spreads. Finally, we are seeing an increased opportunity set in the
-B-piece segment of the commercial mortgage market, driven by ‘new’
+in todays QE-driven market, allowing investors to earn above average spreads. Finally, we are seeing an increased opportunity set in the
+B-piece segment of the commercial mortgage market, driven by new
 retention rules that notably favor investors with long duration liabilities
 who value the benefits of cash flowing hard assets.
 
 We view Asset-Based Finance as
 an elegant play on our desire
 to lock in low-cost liabilities
-in today’s QE-driven market,
+in todays QE-driven market,
 allowing investors to earn above
 average spreads.
 
@@ -2762,13 +2764,13 @@ INSIGHTS: GLOBAL MACRO TRENDS
 
 #3: Buy Complexity, Sell Simplicity; Active Management Performance to Rebound. Given that global central bank balance sheets
 have expanded by $14 trillion in recent years, investor access to
-cheap capital has skyrocketed. As a result, many investment professionals — hungry to do deals — now appear to be over-paying
+cheap capital has skyrocketed. As a result, many investment professionals  hungry to do deals  now appear to be over-paying
 for quality assets with stable cash flow streams; at the same time,
 however, many of these same investors are not willing to pay a fair
 price for assets that may have stumbled and/or require some fixing
 to achieve their potential. In our view, it is these types of disparate
 behavior patterns that have created such a bifurcation in the market,
-inspiring our call to arms to ‘Buy Complexity and Sell Simplicity.’
+inspiring our call to arms to Buy Complexity and Sell Simplicity.
 From our macro perch at KKR, we see lots of opportunities across
 global Private Equity to implement this thesis, including roll-ups,
 dispositions, and joint-ventures, and as such, it remains one of the
@@ -2878,7 +2880,7 @@ Note: Average Across P/E, P/B and Dividend Yield. Data as at December
 
 EXHIBIT 87
 
-… At a Time When Cyclical Earnings Are Accelerating
+ At a Time When Cyclical Earnings Are Accelerating
 MSCI Europe 2018e Earnings Growth
 
 Utilities
@@ -2892,7 +2894,7 @@ Growth contribution
 
 Data as at December 31, 2017. Source: IBES estimates, MSCI.
 
-Meanwhile, we believe that there is an increasing chance for Investment Grade credits to become ‘Fallen Angels’ during the next 12-24
+Meanwhile, we believe that there is an increasing chance for Investment Grade credits to become Fallen Angels during the next 12-24
 months. We also see opportunity amongst potential divestitures and
 roll-ups in beaten-down sectors such as Telecom and Healthcare. We
 also believe that current changes in the tax code could create higher
@@ -2928,7 +2930,7 @@ Bbg NA REIT Index
 DJ Dividend Index
 
 MLPs are One of Few Asset
-Classes that Currently Oﬀer
+Classes that Currently Oer
 Above-Average Yields
 
 On the other hand, there are several areas that appear expensive.
@@ -2938,7 +2940,7 @@ side, we note that many areas of the traditional liquid markets appear
 expensive, particularly bonds. Indeed, as the left hand side of Exhibit
 89 shows, BB less BBB spreads are at multi-decade lows relative to
 trend, underscoring our view that investors are willing to overpay
-for quality in today’s market. As we mentioned earlier, we also think
+for quality in todays market. As we mentioned earlier, we also think
 that government bonds in Europe represent particularly poor value.
 Finally, in-depth discussions during our recent travels lead us to believe that Core Real Estate appears expensive, particularly in certain
 gateway cities like London, Hong Kong, and New York.
@@ -2965,7 +2967,7 @@ EXHIBIT 89
 
 Given the Flight to Quality, Individual Credit Picking and
 Understanding Relative Value Across All Spread Assets
-Can Add Material Alpha in Today’s Market, We Believe
+Can Add Material Alpha in Todays Market, We Believe
 % Above / Below 25-year Median Credit Spread/DM%
 
 85 87 89 91 93 95 97 99 01 03 05 07 09 11 13 15
@@ -3042,7 +3044,7 @@ Economist.
 EXHIBIT 92
 
 Europe and Asia Have Seen the Most Dramatic Increase
-in the Number of Companies Targeted by Activists…
+in the Number of Companies Targeted by Activists
 Number of Companies Publicly Subject to Activist Demands
 
 Y/y % Increase
@@ -3051,7 +3053,7 @@ Source: 2017 Activist Insight Annual Review.
 
 At the moment, Japan has emerged as one of the most compelling
 pure play examples on our thesis about corporations shedding noncore assets and subsidiaries. Without question, the macro backdrop
-is compelling for at least three reasons. First, many of Japan’s
+is compelling for at least three reasons. First, many of Japans
 largest companies have literally hundreds of subsidiaries that could
 be deemed non-core, and as corporate governance and shareholder
 activism gain momentum, they are increasingly being identified as
@@ -3062,7 +3064,7 @@ that banks have lots of excess capital to lend to acquirers of these
 subsidiaries. In many instances, a private equity firm can get at least
 7x leverage, with an all-in cost of funds that is below two percent.
 Finally, enterprise value-to-EBITDA multiples in Japan are often at or
-below historical averages, a set-up that we can’t find in many other
+below historical averages, a set-up that we cant find in many other
 markets around the world.
 
 Financial,
@@ -3116,12 +3118,12 @@ Data as at May 2017. Source: PLS.
 
 Data as at 2017. Source: Macquarie.
 
-We also note that we are seeing a lot of corporate ‘streamlining’
+We also note that we are seeing a lot of corporate streamlining
 occurring outside of the traditional multinational sector. Indeed,
 after several quarters of inactivity, we are finally seeing U.S. energy
 companies rightsizing their footprints, as Wall Street encourages
 many of these companies to shed slower growth assets in favor of
-‘hot’ shale basins. While this activity may not necessarily be longterm bullish for the stocks of publicly traded energy companies, it is
+hot shale basins. While this activity may not necessarily be longterm bullish for the stocks of publicly traded energy companies, it is
 creating significant, near term value-creation opportunities for the
 buyers of these properties, particularly for players with expertise in
 the production and midstream segments of the oil and gas markets.
@@ -3165,7 +3167,7 @@ The World Made Progress?
 #5: Experiences Over Things. While this theme is not a new one
 for us, the pace of implementation appears to have accelerated in
 recent months. Importantly, as we describe below, we do not think
-the trend towards experiences is just the ‘Amazon’ effect. Rather, we
+the trend towards experiences is just the Amazon effect. Rather, we
 believe that key influences such as increased healthcare spending,
 heightened rental costs, and rising telecommunications budgets (e.g.,
 iPhones) are leaving less and less discretionary income for traditional
@@ -3178,14 +3180,14 @@ younger individuals in the U.S. are embracing more health, wellness
 and beautification.
 EXHIBIT 97
 
-The Trend Towards Greater Spending on ‘Experiences’ Is
+The Trend Towards Greater Spending on Experiences Is
 Accelerating in Europe Too
 Eurozone Consumer Spending by Category, 1995 = Indexed to 100
 Experiential Spending
 
 Other Spending
 
-Disposable Income Available for Traditional ‘Things’ Is
+Disposable Income Available for Traditional Things Is
 Waning at a Time of Significant Change in Consumer
 Spending
 U.S. Share of Consumer Wallet as a % of Total
@@ -3215,7 +3217,7 @@ offerings, including private insurance and specialized surgery care,
 especially in fast-growing consumer markets such as Brazil, China,
 Indonesia, and India. Importantly, the trend towards services extends
 well beyond just the Healthcare sector. Recreation, travel, and leisure
-all appear to be market share gainers versus basic ‘things’ that consumers traditionally bought with their disposable income. Moreover,
+all appear to be market share gainers versus basic things that consumers traditionally bought with their disposable income. Moreover,
 consumers are more willing to use the Internet to price shop, making
 them more fickle in some instances.
 EXHIBIT 99
@@ -3224,7 +3226,7 @@ Chinese Millennials Not Only Save Less But Also Allocate
 Three Times More of Their Income to Leisure
 
 We do not think the trend towards
-experiences is just the ‘Amazon’
+experiences is just the Amazon
 effect. Rather, we believe that
 key influences such as increased
 healthcare spending, heightened
@@ -3263,8 +3265,8 @@ Asia Pacific Tourists Accounted for More than 25% of
 Total International Arrivals in 2016
 
 25.6% of worldwide tourists
-came from the Asia Paciﬁc region,
-with four out of ﬁve of those
+came from the Asia Pacic region,
+with four out of ve of those
 travelling intra-regionally
 
 4.7 4.7 4.9
@@ -3306,7 +3308,7 @@ INSIGHTS: GLOBAL MACRO TRENDS
 The downside of the environment we are describing is that many
 traditional retailers, malls, and product providers are likely to see
 waning demand for their offerings. Moreover, pricing power in many
-areas of the ‘goods’ market is negative. All told, ‘core core’ U.S.
+areas of the goods market is negative. All told, core core U.S.
 goods inflation, which we define as goods inflation ex-food, energy and tobacco, has been negative on a year-over-year basis for
 the past 19 consecutive quarters and negative for 53 of the last 72
 quarters since 2000. These trends are noteworthy, because a lot of
@@ -3321,14 +3323,14 @@ capital ratios are extremely high, and second, the much-anticipated
 changes to Dodd Frank to roll back the implementation of certain
 regulations likely mean not only more ways to make money but also
 more flexibility in returning capital to shareholders. Said differently,
-we view this set-up in the banking sector as somewhat of an ‘in the
-money’ call option for investors. As such, we think that the potential
+we view this set-up in the banking sector as somewhat of an in the
+money call option for investors. As such, we think that the potential
 for banks and other important financial intermediaries to return more
 capital to shareholders is significant.
 Second, we think that investors are underestimating the incremental
 return on capital for the financial services industry from any part
 of our U.S. base case forecast (i.e., recall that we are at five hikes
-versus the markets’ 2.5 through the end of 2019). Our prior work has
+versus the markets 2.5 through the end of 2019). Our prior work has
 shown that margin pick-up from rising rates at certain deposit-taking
 institutions could be as high as 90%. This uplift could be substantial,
 as we show in Exhibit 103.
@@ -3382,7 +3384,7 @@ Data as at 3Q2017. Source: Morgan Stanley Research.
 INSIGHTS: GLOBAL MACRO TRENDS
 
 In the near term we expect U.S. banks to benefit the most, but over
-time, the upside gearing in the European financial services community is substantial – more than many investors are likely to appreciate. Just consider that, on the front end, European financials are now
+time, the upside gearing in the European financial services community is substantial  more than many investors are likely to appreciate. Just consider that, on the front end, European financials are now
 enduring negative deposit rates; moreover, the German bund, as a
 proxy for the long end of the curve, is yielding just 0.46%, compared
 to our theoretical value of closer to 140 basis points, underscoring
@@ -3447,7 +3449,7 @@ INSIGHTS: GLOBAL MACRO TRENDS
 Section III: Risks/Hedging
 In the following section we detail some market concerns that we
 have identified as well as potential mitigants to protecting against
-issues in these market ‘soft spots.’
+issues in these market soft spots.
 #1: Increasing Dependence on Technology and Financial Earnings
 Given our view that there are not a lot of multiple expansion stories
 left in this market, we think that investors should focus on what
@@ -3537,7 +3539,7 @@ For those that want to hedge out this risk on a proactive basis, our
 colleague Phil Kim suggests using simple 25 delta put options on
 QQQ (the Nasdaq 100 Index). As a refresher, delta measures the rate
 of change of the theoretical option value with respect to changes in
-the underlying asset’s price. With a strike of 144 versus an underlying value of 156, the option costs 220 basis points upfront.
+the underlying assets price. With a strike of 144 versus an underlying value of 156, the option costs 220 basis points upfront.
 
 From almost any vantage point,
 the global risk free rate is unusually low relative to both history as well as current global
@@ -3584,7 +3586,7 @@ of Bank Loans at This Point in the Cycle
 U.S. High Yield vs. Leverage Loan Spread, Basis
 
 Investment Grade Leverage Risk Is Quietly Testing Record
-Levels Again…
+Levels Again
 U.S. Investment Grade Leverage
 
 +1 St. Dev.
@@ -3598,7 +3600,7 @@ Below Avg.
 Another area within Credit that we are watching closely is the Investment Grade Debt market. Key to our thinking is that, as we show in
 Exhibit 115, gross leverage and net leverage are both re-approaching
 levels not seen since the late 1990s, a period that led to a sudden
-surge in ‘Fallen Angels.’ All told, the BBB segment of the Investment
+surge in Fallen Angels. All told, the BBB segment of the Investment
 Grade market is now 49% of the entire IG market, compared to 38%
 in 2007; moreover, the size of the IG market has doubled during this
 same period, according to Adam Richmond of the investment bank
@@ -3624,7 +3626,7 @@ INSIGHTS: GLOBAL MACRO TRENDS
 
 EXHIBIT 116
 
-…Particularly in the Energy, Healthcare, and TMT Sectors
+Particularly in the Energy, Healthcare, and TMT Sectors
 Change in Leverage from Trough in 2Q11 to 2Q17
 
 Healthcare
@@ -3641,7 +3643,7 @@ In terms of hedging for these aforementioned risks, we are running
 with huge underweights to both Government Bonds and traditional
 Credit. In addition, we suggest Investment Grade CDX payer swaptions for full tail risk insurance. Despite skew being wider in Investment Grade bonds, the overall level of volatility is still very low,
 resulting in less premium spend per unit of expected payout. Also,
-Investment Grade spreads tend to move more in multiples of original spread than High Yield in risk-off scenarios (i.e., it’s easier for a
+Investment Grade spreads tend to move more in multiples of original spread than High Yield in risk-off scenarios (i.e., its easier for a
 company that trades at 20 basis points to widen to 80 basis points in
 a risk-off event rather than a company to go from 300 basis points to
 1,200 basis points). A six month 25 delta payer swaption (80 basis
@@ -3659,7 +3661,7 @@ Term Capital Management in the late 1990s, stocks and bonds tended
 to move in opposite directions, creating notable bouts of volatility
 along the way (e.g., 1994). However, after Fed Chairman Greenspan
 intervened in 1998, stocks and bonds tended to be more supportive during periods of stress. Specifically, as stocks sold off, bonds
-actually rallied – essentially lowering the cost of capital for corporations. At the same time, levered entities, including risk parity players,
+actually rallied  essentially lowering the cost of capital for corporations. At the same time, levered entities, including risk parity players,
 benefitted from the stability that bonds provided. In many instances
 these portfolios actually enjoyed gains.
 This relationship has been quite lucrative for the investment management industry in recent years, and in our view, we believe that it
@@ -3678,7 +3680,7 @@ of Past 36 Month Returns, %
 
 At current levels, our base view is
 that global government bonds can
-act neither as ‘shock absorbers’
+act neither as shock absorbers
 nor as meaningful income
 producers.
 
@@ -3697,7 +3699,7 @@ INSIGHTS: GLOBAL MACRO TRENDS
 EXHIBIT 118
 
 Stock Bond Correlations Have Actually Been Positive
-Since the Tech Bubble Peak in 2000, But this Isn’t the
+Since the Tech Bubble Peak in 2000, But this Isnt the
 Norm Over a Longer Time Period
 36-Month Correlation: S&P 500 Index
 vs. US 10-Year Yield, %
@@ -3706,8 +3708,8 @@ Positive correlations
 are not the norm
 
 Inflation Expectations Have Narrowed Relative to History
-Inﬂation Forecast Dispersion and U.S. 10-Year Term Premium
-Dispersion of 1-year ahead inﬂation forecasts
+Ination Forecast Dispersion and U.S. 10-Year Term Premium
+Dispersion of 1-year ahead ination forecasts
 
 10-Year U.S. Term Premium, RHS
 
@@ -3718,7 +3720,7 @@ yield correlation was negative
 
 1930 1950 1970 1990 2010
 
-Data as at December 31, 2017. Source: Shiller data, Standard & Poor’s,
+Data as at December 31, 2017. Source: Shiller data, Standard & Poors,
 Federal Reserve Board, U.S. Treasury, Haver Analytics.
 
 At the moment, we do not see this type of systematic and permanent reversal in equity/bond correlations as a material threat to the
@@ -3757,8 +3759,8 @@ inflation expectations, earnings trends, and term premium.
 INSIGHTS: GLOBAL MACRO TRENDS
 
 To hedge against this potential shift in the macro environment, we
-believe that investors should be fully embracing our ‘Central Bank
-Normalization’ thesis, which includes – among other things – an underweight to government bonds, an overweight to mortgage services,
+believe that investors should be fully embracing our Central Bank
+Normalization thesis, which includes  among other things  an underweight to government bonds, an overweight to mortgage services,
 and an extension of long duration liabilities. We also believe that
 some of the hedges mentioned earlier (e.g., Nasdaq and/or S&P 500
 puts) would make sense were correlations to reverse (finally) amidst
@@ -3786,17 +3788,17 @@ Citi Global Economic Surprise Index, Rolling 12-Month Dispersion
 Data as at December 31, 2017. Source: Bloomberg.
 
 My colleague Ken Mehlman is watching for more behavioral controversies to upend companies over the coming year. The exposure of
-widespread sexual harassment–and worse–has ended careers and
+widespread sexual harassmentand worsehas ended careers and
 damaged numerous institutions across a wide swath of industries. In
 addition to reflecting a welcomed change in behavior, these revelations and public outrage also reflect the transformative power of
 the Internet to uncover misbehavior. We see multiple dynamics at
 work. First, the Internet and social media turn previously powerless
 individuals with a story to tell into de facto investigative journalists.
 Second, social media builds community among otherwise random
-individuals with similar experiences–making it more likely these individuals will tell their stories. Third, social media’s immediacy spreads
+individuals with similar experiencesmaking it more likely these individuals will tell their stories. Third, social medias immediacy spreads
 and accelerates these stories at a rapid clip.
 Without question, social media is not just about reputational issues;
-the aforementioned concerns can impact a company’s bottom line,
+the aforementioned concerns can impact a companys bottom line,
 result in termination of top talent, and otherwise impair brand. In this
 environment, there is no easy hedge; rather, investors must carefully
 assess company culture, risk management practices, and personnel
@@ -3824,7 +3826,7 @@ Without question, social media
 is not just about reputational
 issues; the aforementioned
 concerns can impact a
-company’s bottom line, result
+companys bottom line, result
 in termination of top talent,
 and otherwise impair brand. In
 this environment, there is no
@@ -3878,12 +3880,12 @@ trade and intellectual property (IP). NAFTA also has the potential
 to become a worsening friction point in 2018, with the risk of even
 more disruption depending on how the Mexican election unfolds.
 However, President Trump is no ideologue. His rhetoric, often in
-service of negotiating a ‘better deal’, might differ from actual policy
+service of negotiating a better deal, might differ from actual policy
 outcomes, and his approach can change based on other geopolitical
 Interestingly, though, we also believe that intensifying rivalries and
 geopolitical events may also provide discrete upsides to certain trade
 dynamics, which could actually be good for markets. Indeed, it was
-actually North Korea’s nuclear tests this past year that took the pressure off the US-South Korea FTA renegotiation. Similarly, a more
+actually North Koreas nuclear tests this past year that took the pressure off the US-South Korea FTA renegotiation. Similarly, a more
 confrontational dynamic with Beijing may eventually prove positive
 for U.S. trade relations with other Asian powers.
 
@@ -3936,16 +3938,16 @@ Commodity
 Data as at December 31, 2017. Source: Factset.
 
 If we are wrong and financial assets perform poorly throughout 2018,
-we believe that it will actually be tied to stronger—not weaker—
+we believe that it will actually be tied to strongernot weaker
 growth as well as a more hawkish Federal Reserve and/or ECB. Indeed, we are now adding significant stimulus amidst a period of both
 rising consumer confidence and financial asset prices. Against this
 more robust growth, central banks will likely have to start removing
-‘emergency’ monetary conditions, a decision that we believe could
+emergency monetary conditions, a decision that we believe could
 dent the significant outperformance that we have seen of financial
 assets relative to real assets since the Global Financial Crisis (Exhibit
-In the interim, however, we believe that investors can still ‘get what
-they need’ in 2018 by embracing many of the global macro investment themes that we have laid out in this year’s outlook piece.
-Consistent with this view, we continue to see today’s market as a
+In the interim, however, we believe that investors can still get what
+they need in 2018 by embracing many of the global macro investment themes that we have laid out in this years outlook piece.
+Consistent with this view, we continue to see todays market as a
 bifurcated one that rewards investors seeking to Buy Complexity as
 well as to Sell Simplicity. Moreover, unlike in prior years, the opportunity set today extends well beyond making good asset allocation
 decisions. Indeed, the opportunity set within many asset classes to
@@ -3990,7 +3992,7 @@ transactions that are not consistent with the information
 and views expressed in this document.
 The views expressed in this publication are the personal
 views of Henry McVey of Kohlberg Kravis Roberts & Co.
-L.P. (together with its affiliates, “KKR”) and do not necessarily reflect the views of KKR itself or any investment
+L.P. (together with its affiliates, KKR) and do not necessarily reflect the views of KKR itself or any investment
 professional at KKR. This document is not research and
 should not be treated as research. This document does
 not represent valuation judgments with respect to any
@@ -4000,8 +4002,8 @@ not intended to, and does not, relate specifically to any
 investment strategy or product that KKR offers. It is be-
 
 ing provided merely to provide a framework to assist in
-the implementation of an investor’s own analysis and an
-investor’s own views on the topic discussed herein.
+the implementation of an investors own analysis and an
+investors own views on the topic discussed herein.
 This publication has been prepared solely for informational purposes. The information contained herein is
 only as current as of the date indicated, and may be
 superseded by subsequent market events or for other
@@ -4024,7 +4026,7 @@ different than that shown here. This publication should
 not be viewed as a current or past recommendation or a
 solicitation of an offer to buy or sell any securities or to
 adopt any investment strategy.
-The information in this publication may contain projections or other forward‐looking statements regarding
+The information in this publication may contain projections or other forwardlooking statements regarding
 future events, targets, forecasts or expectations regarding the strategies described herein, and is only current
 as of the date indicated. There is no assurance that such
 events or targets will be achieved, and may be signifi-
