@@ -2,6 +2,7 @@ config_es = {
     'host': '127.0.0.1',
     'port': 9200,
     'index': 'gutenberg',
+    'documents': 'pdfs',
     'path': './data/gutenberg',
     'ignore_same_docs': True,
     'frequency': 5,
@@ -11,7 +12,7 @@ config_es = {
             "number_of_replicas": 0
         },
         "mappings": {
-            "docs": {
+            "pdfs": {
                 # dynamic: strict --> the “doc” object will throw an exception
                 # if an unknown field is encountered
                 "dynamic": "strict",
@@ -23,7 +24,8 @@ config_es = {
                             "path": {"type": "keyword"},
                             "directory": {"type": "keyword"},
                             "filename": {"type": "keyword"},
-                            "extension": {"type": "keyword"}
+                            "extension": {"type": "keyword"},
+                            "hash_content": {"type": "keyword"}
                         }
                     },
                     "title": {

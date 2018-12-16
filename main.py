@@ -2,26 +2,32 @@
 from gevent import monkey
 monkey.patch_all()
 import os
+import re
 import sys
 import string
 import subprocess
 import base64
 import logging
 import gevent
+import textract
 from time import time
 from gevent.fileobject import FileObjectThread
 from datetime import datetime
-import textract
 from PyPDF2 import PdfFileReader
+from apscheduler.schedulers.gevent import GeventScheduler
 from esdb import ES
 import utils
 from config import config_es
 
+logger = logging.getLogger('partnerscap')
+logger.setLevel(logging.INFO)
 
-formatter = '%(asctime)s.%(msecs)03d -%(levelname)s- [%(filename)s:%(lineno)d] #  %(message)s'
-logging.basicConfig(format=formatter,
-                    datefmt='%Y-%m-%d:%H:%M:%S',
-                    level=logging.INFO)
+handler = logging.StreamHandler()
+formatter = logging.Formatter(('%(asctime)s.%(msecs)03d - %(levelname)s - ' +
+                               '[%(filename)s:%(lineno)d] #  %(message)s'),
+                               '%Y-%m-%d:%H:%M:%S')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 # https://stackoverflow.com/questions/37861279/how-to-index-a-pdf-file-in-elasticsearch-5-0-0-with-ingest-attachment-plugin?rq=1
@@ -59,7 +65,7 @@ def parse_pdf(f, encoding='utf-8'):
 
     t0 = time()
 
-    logging.debug('Gevent (init parse_pdf): {}'.format(gevent.getcurrent().name))
+    logger.debug('Gevent (init parse_pdf): {}'.format(gevent.getcurrent().name))
 
     content = {}
 
@@ -78,9 +84,9 @@ def parse_pdf(f, encoding='utf-8'):
             clean_text = ''
 
             t1 = time()
-            logging.debug('Gevent (before textract.process): {}'.format(gevent.getcurrent().name))
+            logger.debug('Gevent (before textract.process): {}'.format(gevent.getcurrent().name))
             text = textract.process(f.get('fpath'), encoding=encoding)
-            logging.debug('Gevent (after textract.process: {} - {}'.format(gevent.getcurrent().name, time() - t1))
+            logger.debug('Gevent (after textract.process: {} - {}'.format(gevent.getcurrent().name, time() - t1))
 
             text = text.decode("utf-8")
             text = ''.join(list(filter(lambda x: x in set(string.printable), text)))
@@ -99,9 +105,9 @@ def parse_pdf(f, encoding='utf-8'):
             encoded = base64.b64encode(bytes(clean_text, 'utf-8'))
 
             t2 = time()
-            logging.debug('Gevent (before PdfFileReader): {}'.format(gevent.getcurrent().name))
+            logger.debug('Gevent (before PdfFileReader): {}'.format(gevent.getcurrent().name))
             pdf = PdfFileReader(pdffile, strict=False)
-            logging.debug('Gevent (after PdfFileReader: {} - {}'.format(gevent.getcurrent().name, time() - t2))
+            logger.debug('Gevent (after PdfFileReader: {} - {}'.format(gevent.getcurrent().name, time() - t2))
             info = pdf.getDocumentInfo()
 
             content = {
@@ -122,29 +128,57 @@ def parse_pdf(f, encoding='utf-8'):
                 'pages': pdf.getNumPages(),
             }
 
-            logging.debug('Gevent (end parse_pdf): {} - {}'.format(gevent.getcurrent().name, time() - t0))
+            logger.debug('Gevent (end parse_pdf): {} - {}'.format(gevent.getcurrent().name, time() - t0))
             return content
 
 
-def main(es_addr, es_port, es_index, es_mapping, files_dir):
+def main(es_addr, es_port, es_index, es_docs, es_mapping, files_dir):
 
-    es = ES(es_addr, es_port, es_index)
+    es = ES(es_addr, es_port)
     es.connect()
 
-    es.secure_delete_index()
+    es.secure_delete_index(es_index)
     
     if es.create_index(es_index, es_mapping):
 
         allfiles = get_files_in_dir(files_dir)
         
+        content = '''
+        {{
+          "query": {{
+            "nested": {{
+              "path": "info",
+              "query": {{
+                "term": {{
+                  "info.hash_content": {{
+                    "value": "{fname}"
+                  }}
+                }}
+              }}
+            }}
+          }},
+          "size": 0
+        }}
+        '''
+        content = content.replace('\n', ' ').replace('\r', '')
+        content = re.sub(' +',' ',content)
+        
+        allfiles = [f for f in allfiles
+                    if es.search(es_index, content.format(fname=f.get('fname')))['hits']['total'] == 0]
+        
+        if len(allfiles) == 0:
+            logger.info('No documents to index')
+            return
+        
         question = 'Index {} documents in index {}?'.format(len(allfiles), es_index)
         if utils.query_yes_no(question):
     
             g1 = [gevent.spawn(parse_pdf, f) for f in allfiles]
-            # utils.get_greenlet_status(g1, 1)
+            utils.get_greenlet_status(g1, 5)
             gevent.joinall(g1)
         
             g2 = [gevent.spawn(es.store_record, es_index, es_docs, g.value) for g in g1]
+            utils.get_greenlet_status(g2, 5)
             gevent.joinall(g2)
     
 
@@ -153,11 +187,24 @@ if __name__ == '__main__':
     es_addr = config_es.get('host', '127.0.01')
     es_port = config_es.get('port', 9200)
     es_index = config_es.get('index', '')
+    es_docs = config_es.get('documents', '')
     es_mapping = config_es.get('mapping', '')
-
     files_dir = './data/gutenberg'
 
-    main(es_addr, es_port, es_index, es_mapping, files_dir)
+    main(es_addr, es_port, es_index, es_docs, es_mapping, files_dir)
+    
+    '''
+    # https://github.com/agronholm/apscheduler/blob/master/examples/schedulers/gevent_.py
+    scheduler = GeventScheduler()
+    scheduler.add_job(tick, 'interval', seconds=300)
+    g = scheduler.start()  # g is the greenlet that runs the scheduler loop
+    print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
-    logging.info('End of script.')
+    # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
+    try:
+        g.join()
+    except (KeyboardInterrupt, SystemExit):
+        pass
+    '''
+    
     sys.exit(0)

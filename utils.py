@@ -4,7 +4,9 @@ import sys
 import gevent
 import logging
 import json
+import hashlib
 
+logger = logging.getLogger('partnerscap')
 
 def is_json(myjson):
     try:
@@ -36,7 +38,7 @@ def _get_status(greenlets):
     running = 0
     completed = 0
     successed = 0
-    yet_to_run = 0
+    queued = 0
     failed = 0
 
     for g in greenlets:
@@ -51,23 +53,35 @@ def _get_status(greenlets):
                 else:
                     failed += 1
             else:
-                yet_to_run += 1
+                queued += 1
 
-    assert yet_to_run == total - completed - running
+    assert queued == total - completed - running
     assert failed == completed - successed
 
     return dict(total=total,
                 running=running,
                 completed=completed,
                 successed=successed,
-                yet_to_run=yet_to_run,
+                queued=queued,
                 failed=failed)
 
 
 def get_greenlet_status(greenlets, sec=5):
     while True:
         status = _get_status(greenlets)
-        logging.info('{}'.format(status))
+        logger.info('{}'.format(status))
         if status['total'] == status['completed']:
             return
         gevent.sleep(sec)
+
+
+def hashfile(fpath):
+
+    blocksize = 65536
+    hasher = sha256()
+    with open(fpath, 'rb') as f:
+        buf = f.read(blocksize)
+        while len(buf) > 0:
+            hasher.update(buf)
+            buf = f.read(blocksize)
+    return hasher.hexdigest()
