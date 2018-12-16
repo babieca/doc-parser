@@ -4,19 +4,15 @@ monkey.patch_all()
 import os
 import re
 import sys
-import string
-import subprocess
-import base64
+import errno
 import logging
 import gevent
-import textract
 from time import time
-from gevent.fileobject import FileObjectThread
-from datetime import datetime
-from PyPDF2 import PdfFileReader
-from apscheduler.schedulers.gevent import GeventScheduler
+#from apscheduler.schedulers.gevent import GeventScheduler
 from esdb import ES
 import utils
+import parser
+from mappings import mappings
 from config import config_es
 
 logger = logging.getLogger('partnerscap')
@@ -33,165 +29,101 @@ logger.addHandler(handler)
 # https://stackoverflow.com/questions/37861279/how-to-index-a-pdf-file-in-elasticsearch-5-0-0-with-ingest-attachment-plugin?rq=1
 # https://stackoverflow.com/questions/46988307/how-do-you-use-the-elasticsearch-ingest-attachment-processor-plugin-with-the-pyt
 
-def get_files_in_dir(dir):
 
-    if not os.path.isdir(dir):
-        raise ValueError("[  OS  ]  Directory does not exist.")
+def main(es_addr, es_port, src_dir):
 
-    filesdic = []
-    dirpath = os.path.abspath(dir)
-
-    for f in os.listdir(dirpath):
-        fpath = os.path.join(dirpath, f)
-        if os.path.isfile(fpath):
-            filesdic.append({'fpath': fpath,    # directory + file name + extension
-                             'dir': dirpath,                        # directory
-                             'fname': f.split('.')[0],              # file name
-                             'fext': os.path.splitext(fpath)[1]})   # extension
-    return filesdic
-
-
-def remove_nonsense_lines(line, min=4):
-    counter = 0
-    for c in line:
-        if c in string.printable:
-            counter += 1
-        if counter >= min:
-            return line
-    return False
-
-
-def parse_pdf(f, encoding='utf-8'):
-
-    t0 = time()
-
-    logger.debug('Gevent (init parse_pdf): {}'.format(gevent.getcurrent().name))
-
-    content = {}
-
-    if 'pdf' in f.get('fext'):
-
-        eof = subprocess.check_output(['tail', '-1', f.get('fpath')])
-        if b'%%EOF' != eof and b'%%EOF\n' != eof and b'%%EOF\r\n' != eof:
-            return None
-
-        fname = f.get('fname').replace(" ", "_")
-
-        f_raw = open(f.get('fpath'), 'rb')
-
-        with FileObjectThread(f_raw, 'rb') as pdffile:
-
-            clean_text = ''
-
-            t1 = time()
-            logger.debug('Gevent (before textract.process): {}'.format(gevent.getcurrent().name))
-            text = textract.process(f.get('fpath'), encoding=encoding)
-            logger.debug('Gevent (after textract.process: {} - {}'.format(gevent.getcurrent().name, time() - t1))
-
-            text = text.decode("utf-8")
-            text = ''.join(list(filter(lambda x: x in set(string.printable), text)))
-            text = text.split('\n')
-
-            for line in text:
-                if not line and clean_text[-2:] != '\n\n':
-                    clean_text += '\n'
-                else:
-                    min_char_len = 8
-                    clean_line = remove_nonsense_lines(str(line), min_char_len)
-                    if clean_line:
-                        clean_text += clean_line + '\n'
-
-            # ftext.write(clean_text)
-            encoded = base64.b64encode(bytes(clean_text, 'utf-8'))
-
-            t2 = time()
-            logger.debug('Gevent (before PdfFileReader): {}'.format(gevent.getcurrent().name))
-            pdf = PdfFileReader(pdffile, strict=False)
-            logger.debug('Gevent (after PdfFileReader: {} - {}'.format(gevent.getcurrent().name, time() - t2))
-            info = pdf.getDocumentInfo()
-
-            content = {
-                'title': info.title,
-                'content': clean_text,
-                'info': {
-                    'path': f.get('fpath', ''),
-                    'directory': f.get('dir', ''),
-                    'filename': f.get('fname', ''),
-                    'extension': f.get('fext', ''),
-                },
-                'author': {
-                    'name': info.author
-                },
-                'created': {
-                    'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                },
-                'pages': pdf.getNumPages(),
-            }
-
-            logger.debug('Gevent (end parse_pdf): {} - {}'.format(gevent.getcurrent().name, time() - t0))
-            return content
-
-
-def main(es_addr, es_port, es_index, es_docs, es_mapping, files_dir):
-
-    es = ES(es_addr, es_port)
-    es.connect()
-
-    es.secure_delete_index(es_index)
+    if not src_dir:
+        raise ValueError('Source file cannot be empty')
+    if not os.path.isdir(src_dir):
+        raise ValueError('Source file do not exist')
     
-    if es.create_index(es_index, es_mapping):
-
-        allfiles = get_files_in_dir(files_dir)
-        
-        content = '''
-        {{
-          "query": {{
-            "nested": {{
-              "path": "info",
-              "query": {{
-                "term": {{
-                  "info.hash_content": {{
-                    "value": "{fname}"
-                  }}
-                }}
-              }}
-            }}
-          }},
-          "size": 0
-        }}
-        '''
-        content = content.replace('\n', ' ').replace('\r', '')
-        content = re.sub(' +',' ',content)
-        
-        allfiles = [f for f in allfiles
-                    if es.search(es_index, content.format(fname=f.get('fname')))['hits']['total'] == 0]
-        
-        if len(allfiles) == 0:
-            logger.info('No documents to index')
+    es = ES(es_addr, es_port)
+    
+    es.connect()
+    
+    for idx in list(mappings.keys()):
+        if not es.secure_delete_index(idx):
+            logger.error("Error deleting index '{}'".format(idx))
             return
         
-        question = 'Index {} documents in index {}?'.format(len(allfiles), es_index)
-        if utils.query_yes_no(question):
+        if not es.create_index(idx, mappings.get('mapping_'+idx,'')):
+            logger.error("Error creating index '{}'".format(idx))
+            return
+
+    allfiles = utils.get_files_in_dir(src_dir)
     
-            g1 = [gevent.spawn(parse_pdf, f) for f in allfiles]
-            utils.get_greenlet_status(g1, 5)
-            gevent.joinall(g1)
+    content = '''
+    {{
+      "query": {{
+        "nested": {{
+          "path": "info",
+          "query": {{
+            "term": {{
+              "info.hash_content": {{
+                "value": "{fname}"
+              }}
+            }}
+          }}
+        }}
+      }},
+      "size": 0
+    }}
+    '''
+    content = content.replace('\n', ' ').replace('\r', '')
+    content = re.sub(' +',' ',content)
+
+    #allfiles = [f for f in allfiles
+    #            if es.search(es_index, content.format(fname=f.get('fname')))['hits']['total'] == 0]
+    
+    if len(allfiles) == 0:
+        logger.info('No documents to index')
+        return
+    
+    logger.info('Indexing {} files'.format(len(allfiles)))
+
+    g1 = [gevent.spawn(parser.parse_pdf, f) for f in allfiles]
+    utils.get_greenlet_status(g1, 5)
+    gevent.joinall(g1)
+
+    g2 = [gevent.spawn(es.store_record, 'files', '_doc', g.value) for g in g1]
+    utils.get_greenlet_status(g2, 5)
+    gevent.joinall(g2)
+     
+    dst_dir = os.path.join(src_dir, 'processed')
+    if not os.path.exists(dst_dir):
+        try:
+            os.makedirs(dst_dir)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise ValueError(("The directory '{}' was created " +
+                    "between the os.path.exists and the os.makedirs").
+                    format(dst_dir))
+    
+    for f in allfiles:
+        src = f.get('fpath')
+        if not src:
+            raise ValueError('Error reading source path')
+        if not os.path.exists(src):
+            raise ValueError("Error. File '{}' do not exist".format(src))
+        if not f.get('fname'):
+            raise ValueError('Error reading file name')
+        if not f.get('fname'):
+            raise ValueError('Error reading file extension')
         
-            g2 = [gevent.spawn(es.store_record, es_index, es_docs, g.value) for g in g1]
-            utils.get_greenlet_status(g2, 5)
-            gevent.joinall(g2)
-    
+        fname = f.get('fname') + f.get('fext')
+        dst = os.path.join(dst_dir, fname)
+        
+        os.rename(src, dst)
+        logger.info("File moved from '{}' to {}".format(src, dst))
+
 
 if __name__ == '__main__':
 
     es_addr = config_es.get('host', '127.0.01')
     es_port = config_es.get('port', 9200)
-    es_index = config_es.get('index', '')
-    es_docs = config_es.get('documents', '')
-    es_mapping = config_es.get('mapping', '')
-    files_dir = './data/gutenberg'
+    src_dir = config_es.get('src_dir')
 
-    main(es_addr, es_port, es_index, es_docs, es_mapping, files_dir)
+    main(es_addr, es_port, src_dir)
     
     '''
     # https://github.com/agronholm/apscheduler/blob/master/examples/schedulers/gevent_.py
@@ -206,5 +138,5 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit):
         pass
     '''
-    
+    logger.info('End of script')
     sys.exit(0)

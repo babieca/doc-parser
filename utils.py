@@ -1,10 +1,13 @@
 from gevent import monkey
 monkey.patch_all()
+import os
 import sys
 import gevent
 import logging
 import json
 import hashlib
+import string
+import uuid
 
 logger = logging.getLogger('partnerscap')
 
@@ -34,12 +37,8 @@ def query_yes_no(question, default=True):
 
 
 def _get_status(greenlets):
-    total = 0
-    running = 0
-    completed = 0
-    successed = 0
-    queued = 0
-    failed = 0
+    total = running = completed = 0
+    succeeded = queued = failed = 0
 
     for g in greenlets:
         total += 1
@@ -49,28 +48,26 @@ def _get_status(greenlets):
             if g.ready():
                 completed += 1
                 if g.successful():
-                    successed += 1
+                    succeeded += 1
                 else:
                     failed += 1
             else:
                 queued += 1
 
     assert queued == total - completed - running
-    assert failed == completed - successed
+    assert failed == completed - succeeded
 
-    return dict(total=total,
-                running=running,
-                completed=completed,
-                successed=successed,
-                queued=queued,
-                failed=failed)
+    result = {'Total': total, 'Running': running, 'Completed': completed,
+              'Succeeded': succeeded, 'Queued': queued, 'Failed': failed }
+    return result
 
 
 def get_greenlet_status(greenlets, sec=5):
+    session = str(uuid.uuid4())
     while True:
         status = _get_status(greenlets)
-        logger.info('{}'.format(status))
-        if status['total'] == status['completed']:
+        logger.info('Session: {} >> {}'.format(session, status))
+        if status['Total'] == status['Completed']:
             return
         gevent.sleep(sec)
 
@@ -85,3 +82,34 @@ def hashfile(fpath):
             hasher.update(buf)
             buf = f.read(blocksize)
     return hasher.hexdigest()
+
+
+def get_files_in_dir(dir):
+
+    if not os.path.isdir(dir):
+        raise ValueError("[  OS  ]  Directory does not exist.")
+
+    filesdic = []
+    dirpath = os.path.abspath(dir)
+
+    for f in os.listdir(dirpath):
+        fpath = os.path.join(dirpath, f)
+        if os.path.isfile(fpath):
+            filesdic.append({'fpath': fpath,    # directory + file name + extension
+                             'dir': dirpath,                        # directory
+                             'fname': f.split('.')[0],              # file name
+                             'fext': os.path.splitext(fpath)[1]})   # extension
+    return filesdic
+
+
+def remove_nonsense_lines(line, min=4):
+    counter = 0
+    for c in line:
+        if c in string.printable:
+            counter += 1
+        if counter >= min:
+            return line
+    return False
+
+
+

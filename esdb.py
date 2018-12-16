@@ -44,13 +44,11 @@ class ES():
 
         msg = "Do you want to delete the index '{}'?".format(index_name)
         if self.es.indices.exists(index_name):
-            if utils.query_yes_no(msg):
+            if utils.query_yes_no(msg, False):
                 res = self.es.indices.delete(index=index_name)
                 logger.info("The index {} was deleted successfully".
                              format(index_name))
-            else:
-                logger.info("The index {} was not deleted".format(
-                    index_name))
+        return True
 
 
     def create_index(self, index_name, mapping=None):
@@ -75,15 +73,12 @@ class ES():
                                              ignore=[400, 404])
                 logger.info(('Index \'{}\' was created successfully. ' +
                              'Response: {}').format(index_name, res))
-            else:
-                logger.info(('Index \'{}\' already exist and was not ' +
-                             'modified').format(index_name))
             return True
         
         except Exception as ex:
             logger.error("Error creating the index '{}'.Error: {}".format(
                 index_name, str(ex)))
-            return False
+            return
     
     
     def store_record(self, index_name, doc_name, content):
@@ -107,11 +102,13 @@ class ES():
         try:
             t1 = time()
             logger.debug('Gevent (before es_obj.index): {}'.format(gevent.getcurrent().name))
-            outcome = self.es.index(index=index_name, doc_type=doc_name, body=content)
+            res = self.es.index(index=index_name, doc_type=doc_name, body=content)
             logger.debug('Gevent (after es_obj.index: {} - {}'.format(gevent.getcurrent().name, time() - t1))
+            return res
             
         except Exception as ex:
             logger.error('Error. Something went wrong storing the data. {}'.format(str(ex)))
+            return
     
     
     def search(self, index_name, content):
