@@ -1,8 +1,8 @@
 from gevent import monkey
 monkey.patch_all()
+import gevent
 import os
 import sys
-import gevent
 import logging
 import json
 import hashlib
@@ -84,7 +84,7 @@ def hashfile(fpath):
     return hasher.hexdigest()
 
 
-def get_files_in_dir(dir):
+def files_in_dir(dir):
 
     if not os.path.isdir(dir):
         raise ValueError("[  OS  ]  Directory does not exist.")
@@ -112,4 +112,14 @@ def remove_nonsense_lines(line, min=4):
     return False
 
 
+def create_directory(dirname):
+    if not os.path.exists(dirname):
+        try:
+            os.makedirs(dirname)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise ValueError(("The directory '{}' was created " +
+                    "between the os.path.exists and the os.makedirs").
+                    format(dirname))
+    return True
 

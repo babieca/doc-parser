@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 from gevent import monkey
+from textract.colors import green
 monkey.patch_all()
+import gevent
 import os
 import re
 import sys
 import errno
 import logging
-import gevent
 from time import time
-#from apscheduler.schedulers.gevent import GeventScheduler
+from apscheduler.schedulers.gevent import GeventScheduler
 from esdb import ES
 import utils
 import parser
@@ -30,12 +31,50 @@ logger.addHandler(handler)
 # https://stackoverflow.com/questions/46988307/how-do-you-use-the-elasticsearch-ingest-attachment-processor-plugin-with-the-pyt
 
 
-def main(es_addr, es_port, src_dir):
+def folder_tree_structure(dir_root):
+    if not dir_root:
+        raise ValueError('Source directory cannot be empty')
+    if not os.path.isdir(dir_root):
+        raise ValueError('Source directory do not exist')
+    
+    dir_new = os.path.join(dir_root, 'new')
+    dir_proc = os.path.join(dir_root, 'processed')
+    dir_err = os.path.join(dir_root, 'errors')
+    
+    if not os.path.exists(dir_new):
+        raise ValueError("Directory '{}' does not exist".format(dir_new))
+    
+    utils.create_directory(dir_proc)
+    utils.create_directory(dir_err)
+    
+    return (dir_new, dir_proc, dir_err)
 
-    if not src_dir:
-        raise ValueError('Source file cannot be empty')
-    if not os.path.isdir(src_dir):
-        raise ValueError('Source file do not exist')
+
+def move_to_directory(dir_proc, data):
+    src = data.get('fpath')
+    if not src:
+        raise ValueError('Error reading source path')
+    if not os.path.exists(src):
+        raise ValueError("Error. File '{}' do not exist".format(src))
+    if not data.get('fname'):
+        raise ValueError('Error reading file name')
+    if not data.get('fname'):
+        raise ValueError('Error reading file extension')
+    
+    fname = data.get('fname') + data.get('fext')
+    dst = os.path.join(dir_proc, fname)
+    
+    os.rename(src, dst)
+    logger.info("File moved from '{}' to {}".format(src, dst))
+
+
+def on_exception(greenlet):
+    logger.error("Greenlet '{}' died unexpectedly. Args: '{}'".
+                 format(greenlet, greenlet.args))
+
+def main(es_addr, es_port, dir_root):
+
+    dir_new, dir_proc, dir_err = folder_tree_structure(dir_root)
     
     es = ES(es_addr, es_port)
     
@@ -50,7 +89,7 @@ def main(es_addr, es_port, src_dir):
             logger.error("Error creating index '{}'".format(idx))
             return
 
-    allfiles = utils.get_files_in_dir(src_dir)
+    allfiles = utils.files_in_dir(dir_new)
     
     content = '''
     {{
@@ -82,48 +121,34 @@ def main(es_addr, es_port, src_dir):
     logger.info('Indexing {} files'.format(len(allfiles)))
 
     g1 = [gevent.spawn(parser.parse_pdf, f) for f in allfiles]
+    foo = [g.link_exception(on_exception) for g in g1]
     utils.get_greenlet_status(g1, 5)
     gevent.joinall(g1)
 
-    g2 = [gevent.spawn(es.store_record, 'files', '_doc', g.value) for g in g1]
+    g2 = []
+    for g in g1:
+        if not g.value: continue
+        data = g.value
+        if data.get('status') == 'error':
+            move_to_directory(dir_err, data.get('args'))
+            continue
+        
+        data = data.get('data')
+        g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
+        foo = [g.link_exception(on_exception) for g in g2]
+        move_to_directory(dir_proc, data.get('args'))
+
     utils.get_greenlet_status(g2, 5)
     gevent.joinall(g2)
-     
-    dst_dir = os.path.join(src_dir, 'processed')
-    if not os.path.exists(dst_dir):
-        try:
-            os.makedirs(dst_dir)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise ValueError(("The directory '{}' was created " +
-                    "between the os.path.exists and the os.makedirs").
-                    format(dst_dir))
-    
-    for f in allfiles:
-        src = f.get('fpath')
-        if not src:
-            raise ValueError('Error reading source path')
-        if not os.path.exists(src):
-            raise ValueError("Error. File '{}' do not exist".format(src))
-        if not f.get('fname'):
-            raise ValueError('Error reading file name')
-        if not f.get('fname'):
-            raise ValueError('Error reading file extension')
-        
-        fname = f.get('fname') + f.get('fext')
-        dst = os.path.join(dst_dir, fname)
-        
-        os.rename(src, dst)
-        logger.info("File moved from '{}' to {}".format(src, dst))
 
 
 if __name__ == '__main__':
 
     es_addr = config_es.get('host', '127.0.01')
     es_port = config_es.get('port', 9200)
-    src_dir = config_es.get('src_dir')
+    dir_root = config_es.get('dir_root')
 
-    main(es_addr, es_port, src_dir)
+    main(es_addr, es_port, dir_root)
     
     '''
     # https://github.com/agronholm/apscheduler/blob/master/examples/schedulers/gevent_.py
