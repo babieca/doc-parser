@@ -13,7 +13,9 @@ from datetime import datetime
 from time import time
 import utils
 
+# This section at the beginning of every .py file
 logger = logging.getLogger('partnerscap')
+logger.info('Entered module: %s' % __name__)
 
 def parse_pdf(f, encoding='utf-8'):
 
@@ -43,16 +45,7 @@ def parse_pdf(f, encoding='utf-8'):
                          format(gevent.getcurrent().name))
             try:
                 text = textract.process(f.get('fpath'), encoding=encoding)
-                
-            except ValueError as e:
-                logger.error(("ValueError while parsing PDF file '{}' " + 
-                              "using textract. Error: {}").
-                              format(f.get('fpath'), str(e)))
-                return {'status': 'error',
-                        'error': str(e),
-                        'args': f, 
-                        'data': content}
-                
+
             except Exception as e:
                 logger.error(("Unexpected error while parsing PDF file '{}' " +
                               "using textract. Error: ").
@@ -60,7 +53,7 @@ def parse_pdf(f, encoding='utf-8'):
                 return {'status': 'error',
                         'error': str(e),
                         'args': f, 
-                        'data': content}
+                        'data': None}
             
             logger.debug('Gevent (after textract.process: {} - {}'.
                          format(gevent.getcurrent().name, time() - t1))
@@ -79,41 +72,53 @@ def parse_pdf(f, encoding='utf-8'):
                                                              min_char_len)
                     if clean_line:
                         clean_text += clean_line + '\n'
-
-            encoded = base64.b64encode(bytes(clean_text, 'utf-8'))
+            
+            if not clean_text:
+                logger.error(("textract was unable to parse " + 
+                              "the contents of the document '{}'").
+                              format(f.get('fpath')))
+                return {'status': 'error',
+                        'error': 'textract unable to parse any content',
+                        'args': f, 
+                        'data': None}
+            
+            clean_text_bytes = bytes(clean_text, encoding=encoding)            
+            clean_text_b64str = base64.b64encode(clean_text_bytes).decode('utf-8')
+            hash_object = hashlib.sha512(clean_text_bytes)
+            hex_dig = hash_object.hexdigest()
 
             t2 = time()
             logger.debug('Gevent (before PdfFileReader): {}'.
                          format(gevent.getcurrent().name))
+            
+            pdf = None
+            title = ''
+            numpages = -1
+            
             try:
                 pdf = PdfFileReader(pdffile, strict=False)
-                info = pdf.getDocumentInfo()
-                numpages = pdf.getNumPages()
-                
-            except ValueError as e:
-                logger.error(("ValueError while parsing PDF file '{}' " + 
-                              "using PyPDF2. Error: {}").
-                              format(f.get('fpath'), str(e)))
-                return {'status': 'error',
-                        'error': str(e),
-                        'args': f, 
-                        'data': content}
                 
             except Exception as e:
                 logger.error(("Unexpected error while parsing PDF file '{}' " +
                               "using PyPDF2. Error: ").
                               format(f.get('fpath'), str(e)))
-                return {'status': 'error',
-                        'error': str(e),
-                        'args': f, 
-                        'data': content}
+            
+            if pdf:
+                try:
+                    info = pdf.getDocumentInfo()
+                    title = info.title
+                except:
+                    logger.error(("PyPDF2 cannot read the title " +
+                                  " of document '{}'").format(f.get('fpath')))
                 
+                try:
+                    numpages = pdf.getNumPages()
+                except:
+                    logger.error(("PyPDF2 cannot read the number of pages " +
+                                  " of document '{}'").format(f.get('fpath')))
+
             logger.debug('Gevent (after PdfFileReader: {} - {}'.
                          format(gevent.getcurrent().name, time() - t2))
-            
-            
-            hash_object = hashlib.sha512(str.encode(clean_text))
-            hex_dig = hash_object.hexdigest()
             
             content = {
                 'info': {
@@ -121,19 +126,24 @@ def parse_pdf(f, encoding='utf-8'):
                     'directory': f.get('dir', ''),
                     'filename': f.get('fname', ''),
                     'extension': f.get('fext', ''),
-                    'hash_content': hex_dig,
+                    'content_sha512_hex': hex_dig,
                     'pages': numpages
                 },
-                'title': info.title,
+                'title': title,
                 'content': clean_text,
+                'content_base64': clean_text_b64str,
                 'summary': '',
                 'created': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
 
             logger.debug('Gevent (end parse_pdf): {} - {}'.
                          format(gevent.getcurrent().name, time() - t0))
+            
+            if not content:
+                logger.error("Empty content for '{}'".format(f.get('fpath')))
+                
             return {'status': 'ok',
-                    'error': '',
+                    'error': None,
                     'args': f, 
                     'data': content}
 

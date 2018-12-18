@@ -7,7 +7,10 @@ from elasticsearch import Elasticsearch
 from elasticsearch.client.ingest import IngestClient
 import utils
 
+# This section at the beginning of every .py file
 logger = logging.getLogger('partnerscap')
+logger.info('Entered module: %s' % __name__)
+
 
 class ES():
     
@@ -101,13 +104,13 @@ class ES():
         
         try:
             t1 = time()
-            logger.debug('Gevent (before es_obj.index): {}'.format(gevent.getcurrent().name))
+            logger.debug("Gevent (before es_obj.index): '{}'".format(gevent.getcurrent().name))
             res = self.es.index(index=index_name, doc_type=doc_name, body=content)
-            logger.debug('Gevent (after es_obj.index: {} - {}'.format(gevent.getcurrent().name, time() - t1))
+            logger.debug("Gevent (after es_obj.index: '{}' - {}".format(gevent.getcurrent().name, time() - t1))
             return res
             
         except Exception as ex:
-            logger.error('Error. Something went wrong storing the data. {}'.format(str(ex)))
+            logger.error('Error. Something went wrong storing the data')
             return
     
     

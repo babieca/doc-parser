@@ -45,12 +45,13 @@ mappings = {
                             "directory": { "type": "keyword" },
                             "filename": { "type": "keyword" },
                             "extension": { "type": "keyword" },
-                            "hash_content": { "type": "keyword" },
+                            "content_sha512_hex": { "type": "keyword" },
                             "pages": { "type": "short" }
                         }
                     },
                     "title": { "type": "text", "analyzer": "english" },
                     "content": { "type": "text", "analyzer": "english" },
+                    "content_base64": { "type": "binary" },
                     "summary": { "type": "text", "analyzer": "english" },
                     "user_id": { "type": "keyword" },
                     "created": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss" },

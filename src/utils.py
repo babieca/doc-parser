@@ -9,7 +9,9 @@ import hashlib
 import string
 import uuid
 
+# This section at the beginning of every .py file
 logger = logging.getLogger('partnerscap')
+logger.info('Entered module: %s' % __name__)
 
 def is_json(myjson):
     try:
@@ -122,4 +124,42 @@ def create_directory(dirname):
                     "between the os.path.exists and the os.makedirs").
                     format(dirname))
     return True
+
+
+def folder_tree_structure(dir_root):
+    if not dir_root:
+        raise ValueError('Source directory cannot be empty')
+    if not os.path.isdir(dir_root):
+        raise ValueError('Source directory do not exist')
+    
+    dir_new = os.path.join(dir_root, 'new')
+    dir_proc = os.path.join(dir_root, 'processed')
+    dir_err = os.path.join(dir_root, 'errors')
+    
+    if not os.path.exists(dir_new):
+        raise ValueError("Directory '{}' does not exist".format(dir_new))
+    
+    create_directory(dir_proc)
+    create_directory(dir_err)
+    
+    return (dir_new, dir_proc, dir_err)
+
+
+def move_to_directory(dir_proc, data):
+    src = data.get('fpath')
+    if not src:
+        raise ValueError('Error reading source path')
+    if not os.path.exists(src):
+        raise ValueError("Error. File '{}' do not exist".format(src))
+    if not data.get('fname'):
+        raise ValueError('Error reading file name')
+    if not data.get('fname'):
+        raise ValueError('Error reading file extension')
+    
+    fname = data.get('fname') + data.get('fext')
+    dst = os.path.join(dir_proc, fname)
+    
+    os.rename(src, dst)
+    logger.info("File moved from '{}' to {}".format(src, dst))
+
 
