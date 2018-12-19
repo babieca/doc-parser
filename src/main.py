@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import logging
+from datetime import datetime
 from time import time
 from apscheduler.schedulers.gevent import GeventScheduler
 from esdb import ES
@@ -13,8 +14,6 @@ import utils
 import parser
 from mappings import mappings
 from config import config
-
-REP = 80
 
 loglevel = logging.INFO
 logfile_path = config['app']['logfile']
@@ -41,18 +40,30 @@ logger.addHandler(fHandler)
 # https://stackoverflow.com/questions/37861279/how-to-index-a-pdf-file-in-elasticsearch-5-0-0-with-ingest-attachment-plugin?rq=1
 # https://stackoverflow.com/questions/46988307/how-do-you-use-the-elasticsearch-ingest-attachment-processor-plugin-with-the-pyt
 
+###################################################
 # At the beginning of every .py file in the project
+DECORATOR = True
+
 def logFunCalls(fn):
     def wrapper(*args, **kwargs):
         logger = logging.getLogger('partnerscap')
-        logger.info(">> in '{}' <<".format(fn.__name__))
-
+        logger.info("[  in  ]  '{}'".format(fn.__name__))
+        t1 = time()
+        
         out = fn(*args, **kwargs)
 
-        logger.info(">> out - '{}' <<".format(fn.__name__))
+        logger.info("[ out  ]  '{}' ({} secs.)".format(fn.__name__, round(time()-t1, 4)))
         # Return the return value
         return out
     return wrapper
+
+
+def decfun(f):
+    if DECORATOR:
+        return logFunCalls(f)
+    else:
+        return f
+###################################################
 
 
 def query_builder(field, to_search):
@@ -60,7 +71,7 @@ def query_builder(field, to_search):
         {{
           "query": {{
             "nested": {{
-              "path": "info",
+              "path": "meta",
               "query": {{
                 "term": {{
                   "{field}": {{
@@ -80,69 +91,76 @@ def query_builder(field, to_search):
     
     return query
 
-@logFunCalls
+@decfun
 def on_exception(greenlet):
     logger.error("Greenlet '{}' died unexpectedly. Args: '{}'".
                  format(greenlet, greenlet.args))
 
-@logFunCalls
+@decfun
 def main(es_addr, es_port, dir_root):
     
-    dir_new, dir_proc, dir_err = \
-        utils.folder_tree_structure(dir_root)
+    dir_proc, dir_err = utils.folder_tree_structure(dir_root)
     
-    es = ES(es_addr, es_port)
-    es.connect()
+    if not os.path.isabs(dir_root):
+        dir_root = os.path.abspath(dir_root)
     
-    status_time = 5
+    status_time = 10
     
-    dir_files = utils.files_in_dir(dir_new)
+    files = utils.files(dir_root, '.pdf')
 
-    if len(dir_files) == 0:
-        logger.info('No documents to index')
+    if len(files) == 0:
+        logger.info("Directory '{}' is empty".format(dir_root))
         return
     
-    logger.info('Indexing {} files'.format(len(dir_files)))
+    logger.info('Indexing {} files'.format(len(files)))
 
-    g1 = [gevent.spawn(parser.parse_pdf, f) for f in dir_files]
+    g1 = []
+    for file in files:
+        f = os.path.join(file.get('fpath'),
+                         file.get('fname').replace(" ", "_") + \
+                         file.get('fext'))
+        g1.append(gevent.spawn(parser.parse_pdf, f))
+        
     foo = [g.link_exception(on_exception) for g in g1]
-    utils.get_greenlet_status(g1, status_time)
+    #utils.get_greenlet_status(g1, status_time)
     gevent.joinall(g1)
 
-    logger.info('-' * REP)
+    es = ES(es_addr, es_port)
+    es.connect()
     
     g2 = []
     for g in g1:
         result = g.value
         if not result: continue
         if result.get('status') == 'error':
-            #utils.move_to_directory(dir_err, result.get('args'))
+            utils.move_to(result.get('args'), dir_err)
             continue
-        
+
         data = result.get('data')
-        
-        to_search = data.get('info', {}).get('content_sha512_hex')
+
+        to_search = data.get('meta', {}).get('content_sha512_hex')
         query = query_builder(
-            field="info.content_sha512_hex",
+            field="meta.content_sha512_hex",
             to_search=to_search)
         
         if es.search('files', query)['hits']['total'] == 0:
+            
+            data = parser.parse_pdf2img(data)
         
             g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
             foo = [g.link_exception(on_exception) for g in g2]
             
         else:
             logger.info("File '{}' already in the database. Skipped".
-                        format(data.get('info', {}).get('path')))
+                        format(data.get('meta', {}).get('path_file')))
             
-        #utils.move_to_directory(dir_proc, result.get('args'))
-
-    utils.get_greenlet_status(g2, status_time)
+        utils.move_to(result.get('args'), dir_proc)
+    #utils.get_greenlet_status(g2, status_time)
     gevent.joinall(g2)
     
     return
 
-@logFunCalls
+@decfun
 def es_init(es_addr, es_port):
     
     es = ES(es_addr, es_port)
@@ -156,17 +174,13 @@ def es_init(es_addr, es_port):
         if not es.create_index(idx, mappings.get(idx,'')):
             logger.error("Error creating index '{}'".format(idx))
             return
-
-    logger.info('-' * REP)
     
     return
 
 
 if __name__ == '__main__':
 
-    logger.info('>> Start of script <<')
-    logger.info('-' * REP)
-    
+    scheduler = GeventScheduler()
     config_app = config.get('app')
     config_es = config.get('elasticsearch')
     
@@ -188,20 +202,22 @@ if __name__ == '__main__':
 
     es_init(es_addr, es_port)
     
-    scheduler = GeventScheduler()
-    scheduler.add_job(main, 'interval', seconds=10, args=(es_addr, es_port, dir_root))
+    scheduler.add_job(main, 'interval', seconds=120, name='main_job',
+        next_run_time=datetime.now(), replace_existing=True,
+        max_instances=1, args=(es_addr, es_port, dir_root))
+    
     g = scheduler.start()  # g is the greenlet that runs the scheduler loop
     
-    print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+    logger.info('Press Ctrl+{0} to exit'.
+                format('Break' if os.name == 'nt' else 'C'))
 
-    # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
+    # Execution will block here
+    # until Ctrl+C (Ctrl+Break on Windows) is pressed.
     try:
         g.join()
     except (KeyboardInterrupt, SystemExit):
         pass
 
 
-    logger.info('-' * REP)
-    logger.info('>> End of script <<')
-    logger.info('=' * REP)
+    logger.info('[  end  ] {}'.format(__name__))
     sys.exit(0)

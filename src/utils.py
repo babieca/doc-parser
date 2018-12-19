@@ -3,15 +3,44 @@ monkey.patch_all()
 import gevent
 import os
 import sys
+import errno
 import logging
 import json
 import hashlib
 import string
 import uuid
+from datetime import datetime
 
-# This section at the beginning of every .py file
+
 logger = logging.getLogger('partnerscap')
 logger.info('Entered module: %s' % __name__)
+
+
+###################################################
+# At the beginning of every .py file in the project
+DECORATOR = True
+
+def logFunCalls(fn):
+    def wrapper(*args, **kwargs):
+        logger = logging.getLogger('partnerscap')
+        logger.info("[  in  ]  '{}'".format(fn.__name__))
+        t1 = time()
+        
+        out = fn(*args, **kwargs)
+
+        logger.info("[ out  ]  '{}' ({} secs.)".format(fn.__name__, round(time()-t1, 4)))
+        # Return the return value
+        return out
+    return wrapper
+
+
+def decfun(f):
+    if DECORATOR:
+        return logFunCalls(f)
+    else:
+        return f
+###################################################
+
 
 def is_json(myjson):
     try:
@@ -29,7 +58,8 @@ def query_yes_no(question, default=True):
     prompt = "[Y/n]" if default else "[y/N]"
 
     while True:
-        sys.stdout.write('{question} {prompt}: '.format(question=question, prompt=prompt))
+        tm = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'[:-3])
+        sys.stdout.write('{tm} # {question} {prompt}: '.format(tm = tm, question=question, prompt=prompt))
         choice = input().lower()
         if isinstance(default, bool) or choice in valid:
             return valid.get(choice, default)
@@ -65,7 +95,7 @@ def _get_status(greenlets):
 
 
 def get_greenlet_status(greenlets, sec=5):
-    session = str(uuid.uuid4())
+    session = str(uuid.uuid4())[:8]
     while True:
         status = _get_status(greenlets)
         logger.info('Session: {} >> {}'.format(session, status))
@@ -86,7 +116,7 @@ def hashfile(fpath):
     return hasher.hexdigest()
 
 
-def files_in_dir(dir):
+def files(dir, extension=None):
 
     if not os.path.isdir(dir):
         raise ValueError("[  OS  ]  Directory does not exist.")
@@ -97,10 +127,12 @@ def files_in_dir(dir):
     for f in os.listdir(dirpath):
         fpath = os.path.join(dirpath, f)
         if os.path.isfile(fpath):
-            filesdic.append({'fpath': fpath,    # directory + file name + extension
-                             'dir': dirpath,                        # directory
-                             'fname': f.split('.')[0],              # file name
-                             'fext': os.path.splitext(fpath)[1]})   # extension
+            if not extension or (extension and f.endswith(extension)):
+                filesdic.append({
+                    'fpath': dirpath,                      # directory
+                    'fname': f.split('.')[0],              # file name
+                    'fext': os.path.splitext(fpath)[1]})   # extension
+
     return filesdic
 
 
@@ -127,39 +159,38 @@ def create_directory(dirname):
 
 
 def folder_tree_structure(dir_root):
-    if not dir_root:
-        raise ValueError('Source directory cannot be empty')
+    if not dir_root or type(dir_root) is not str:
+        raise ValueError('Root directory must be an absolute or relative path')
     if not os.path.isdir(dir_root):
-        raise ValueError('Source directory do not exist')
+        raise ValueError('Root directory does not exist')
     
-    dir_new = os.path.join(dir_root, 'new')
+    if not os.path.isabs(dir_root):
+        dir_root = os.path.abspath(dir_root)
+    
     dir_proc = os.path.join(dir_root, 'processed')
     dir_err = os.path.join(dir_root, 'errors')
-    
-    if not os.path.exists(dir_new):
-        raise ValueError("Directory '{}' does not exist".format(dir_new))
     
     create_directory(dir_proc)
     create_directory(dir_err)
     
-    return (dir_new, dir_proc, dir_err)
+    return (dir_proc, dir_err)
 
 
-def move_to_directory(dir_proc, data):
-    src = data.get('fpath')
-    if not src:
-        raise ValueError('Error reading source path')
-    if not os.path.exists(src):
-        raise ValueError("Error. File '{}' do not exist".format(src))
-    if not data.get('fname'):
-        raise ValueError('Error reading file name')
-    if not data.get('fname'):
-        raise ValueError('Error reading file extension')
+def move_to(src_file, dst_folder):
+
+    if not src_file or type(src_file) is not str:
+        raise ValueError('Error reading source file')
+    if not dst_folder or type(dst_folder) is not str:
+        raise ValueError('Error reading destination path')
+    if not os.path.exists(src_file):
+        raise ValueError("File '{}' do not exist".format(src))
+    if not os.path.exists(dst_folder):
+        create_directory(dst_folder)
     
-    fname = data.get('fname') + data.get('fext')
-    dst = os.path.join(dir_proc, fname)
+    file_w_extension = os.path.basename(src_file)
+    dst_file = os.path.join(dst_folder, file_w_extension)
     
-    os.rename(src, dst)
-    logger.info("File moved from '{}' to {}".format(src, dst))
+    os.rename(src_file, dst_file)
+    logger.info("File moved from '{}' to {}".format(src_file, dst_file))
 
 

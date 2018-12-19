@@ -12,6 +12,33 @@ logger = logging.getLogger('partnerscap')
 logger.info('Entered module: %s' % __name__)
 
 
+###################################################
+# At the beginning of every .py file in the project
+DECORATOR = True
+
+def logFunCalls(fn):
+    def wrapper(*args, **kwargs):
+        logger = logging.getLogger('partnerscap')
+        logger.info("[  in  ]  '{}'".format(fn.__name__))
+        t1 = time()
+        
+        out = fn(*args, **kwargs)
+
+        logger.info("[ out  ]  '{}' ({} secs.)".format(fn.__name__, round(time()-t1, 4)))
+        # Return the return value
+        return out
+    return wrapper
+
+
+def decfun(f):
+    if DECORATOR:
+        return logFunCalls(f)
+    else:
+        return f
+###################################################
+
+
+@decfun
 class ES():
     
     def __init__(self, host='127.0.0.1', port=9200):

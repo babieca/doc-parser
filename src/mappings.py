@@ -38,11 +38,11 @@ mappings = {
                 "dynamic": "strict",
                 "properties": {
                     "id": { "type": "keyword" },
-                    "info": {
+                    "meta": {
                         "type": "nested",
                         "properties": {
-                            "path": { "type": "keyword" },
-                            "directory": { "type": "keyword" },
+                            "path_file": { "type": "keyword" },
+                            "path_img": { "type": "keyword" },
                             "filename": { "type": "keyword" },
                             "extension": { "type": "keyword" },
                             "content_sha512_hex": { "type": "keyword" },
