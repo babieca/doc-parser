@@ -6,6 +6,7 @@ log_path = os.path.join(dir_path, 'logs.log')
 config = {
     
     'app': {
+        'app_name': 'partnerscap',
         'dir_root': '../gutenberg/',
         'ignore_same_docs': True,
         'freq_min': 5,

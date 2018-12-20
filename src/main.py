@@ -5,66 +5,16 @@ import gevent
 import os
 import re
 import sys
-import logging
 from datetime import datetime
-from time import time
 from apscheduler.schedulers.gevent import GeventScheduler
 from esdb import ES
 import utils
 import parser
 from mappings import mappings
 from config import config
+from control import logger, decfun, monitor_greenlet_status
 
-loglevel = logging.INFO
-logfile_path = config['app']['logfile']
-
-formatter = logging.Formatter(
-    ('%(asctime)s.%(msecs)03d - %(levelname)s - ' +
-    '[%(filename)s:%(lineno)d] #  %(message)s'),
-    '%Y-%m-%d:%H:%M:%S')
-
-logger = logging.getLogger('partnerscap')
-logger.setLevel(loglevel)
-
-sHandler = logging.StreamHandler(stream=sys.stdout)
-sHandler.setLevel(loglevel)
-sHandler.setFormatter(formatter)
-
-fHandler = logging.FileHandler(logfile_path, encoding='utf-8') #, mode='w')
-fHandler.setLevel(loglevel)
-fHandler.setFormatter(formatter)
-
-logger.addHandler(sHandler)
-logger.addHandler(fHandler)
-
-# https://stackoverflow.com/questions/37861279/how-to-index-a-pdf-file-in-elasticsearch-5-0-0-with-ingest-attachment-plugin?rq=1
-# https://stackoverflow.com/questions/46988307/how-do-you-use-the-elasticsearch-ingest-attachment-processor-plugin-with-the-pyt
-
-###################################################
-# At the beginning of every .py file in the project
-DECORATOR = True
-
-def logFunCalls(fn):
-    def wrapper(*args, **kwargs):
-        logger = logging.getLogger('partnerscap')
-        logger.info("[  in  ]  '{}'".format(fn.__name__))
-        t1 = time()
-        
-        out = fn(*args, **kwargs)
-
-        logger.info("[ out  ]  '{}' ({} secs.)".format(fn.__name__, round(time()-t1, 4)))
-        # Return the return value
-        return out
-    return wrapper
-
-
-def decfun(f):
-    if DECORATOR:
-        return logFunCalls(f)
-    else:
-        return f
-###################################################
-
+MONITOR_STATUS = False
 
 def query_builder(field, to_search):
     query = '''
@@ -91,7 +41,7 @@ def query_builder(field, to_search):
     
     return query
 
-@decfun
+
 def on_exception(greenlet):
     logger.error("Greenlet '{}' died unexpectedly. Args: '{}'".
                  format(greenlet, greenlet.args))
@@ -99,7 +49,7 @@ def on_exception(greenlet):
 @decfun
 def main(es_addr, es_port, dir_root):
     
-    dir_proc, dir_err = utils.folder_tree_structure(dir_root)
+    dir_pdfs, dir_err = utils.folder_tree_structure(dir_root)
     
     if not os.path.isabs(dir_root):
         dir_root = os.path.abspath(dir_root)
@@ -122,7 +72,9 @@ def main(es_addr, es_port, dir_root):
         g1.append(gevent.spawn(parser.parse_pdf, f))
         
     foo = [g.link_exception(on_exception) for g in g1]
-    #utils.get_greenlet_status(g1, status_time)
+    
+    if MONITOR_STATUS: monitor_greenlet_status(g1, status_time)
+    
     gevent.joinall(g1)
 
     es = ES(es_addr, es_port)
@@ -154,13 +106,15 @@ def main(es_addr, es_port, dir_root):
             logger.info("File '{}' already in the database. Skipped".
                         format(data.get('meta', {}).get('path_file')))
             
-        utils.move_to(result.get('args'), dir_proc)
-    #utils.get_greenlet_status(g2, status_time)
+        utils.move_to(result.get('args'), dir_pdfs)
+    
+    if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
+    
     gevent.joinall(g2)
     
     return
 
-@decfun
+
 def es_init(es_addr, es_port):
     
     es = ES(es_addr, es_port)

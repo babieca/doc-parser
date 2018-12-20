@@ -1,41 +1,11 @@
 from gevent import monkey
 monkey.patch_all()
 import gevent
-import logging
 from time import time
 from elasticsearch import Elasticsearch
 from elasticsearch.client.ingest import IngestClient
 import utils
-
-# This section at the beginning of every .py file
-logger = logging.getLogger('partnerscap')
-logger.info('Entered module: %s' % __name__)
-
-
-###################################################
-# At the beginning of every .py file in the project
-DECORATOR = True
-
-def logFunCalls(fn):
-    def wrapper(*args, **kwargs):
-        logger = logging.getLogger('partnerscap')
-        logger.info("[  in  ]  '{}'".format(fn.__name__))
-        t1 = time()
-        
-        out = fn(*args, **kwargs)
-
-        logger.info("[ out  ]  '{}' ({} secs.)".format(fn.__name__, round(time()-t1, 4)))
-        # Return the return value
-        return out
-    return wrapper
-
-
-def decfun(f):
-    if DECORATOR:
-        return logFunCalls(f)
-    else:
-        return f
-###################################################
+from control import logger, decfun
 
 
 @decfun
@@ -101,13 +71,13 @@ class ES():
                 res = self.es.indices.create(index=index_name,
                                              body=mapping,
                                              ignore=[400, 404])
-                logger.info(('Index \'{}\' was created successfully. ' +
-                             'Response: {}').format(index_name, res))
+                logger.info(("Index '{}' was created successfully").
+                            format(index_name))
             return True
         
         except Exception as ex:
-            logger.error("Error creating the index '{}'.Error: {}".format(
-                index_name, str(ex)))
+            logger.error("Error creating the index '{}'.Error: {}".
+                         format(index_name, str(ex)))
             return
     
     

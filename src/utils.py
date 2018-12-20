@@ -2,44 +2,15 @@ from gevent import monkey
 monkey.patch_all()
 import gevent
 import os
+import re
 import sys
 import errno
-import logging
 import json
 import hashlib
 import string
 import uuid
 from datetime import datetime
-
-
-logger = logging.getLogger('partnerscap')
-logger.info('Entered module: %s' % __name__)
-
-
-###################################################
-# At the beginning of every .py file in the project
-DECORATOR = True
-
-def logFunCalls(fn):
-    def wrapper(*args, **kwargs):
-        logger = logging.getLogger('partnerscap')
-        logger.info("[  in  ]  '{}'".format(fn.__name__))
-        t1 = time()
-        
-        out = fn(*args, **kwargs)
-
-        logger.info("[ out  ]  '{}' ({} secs.)".format(fn.__name__, round(time()-t1, 4)))
-        # Return the return value
-        return out
-    return wrapper
-
-
-def decfun(f):
-    if DECORATOR:
-        return logFunCalls(f)
-    else:
-        return f
-###################################################
+from control import logger, decfun
 
 
 def is_json(myjson):
@@ -66,42 +37,6 @@ def query_yes_no(question, default=True):
         else:
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
-
-
-def _get_status(greenlets):
-    total = running = completed = 0
-    succeeded = queued = failed = 0
-
-    for g in greenlets:
-        total += 1
-        if bool(g):
-            running += 1
-        else:
-            if g.ready():
-                completed += 1
-                if g.successful():
-                    succeeded += 1
-                else:
-                    failed += 1
-            else:
-                queued += 1
-
-    assert queued == total - completed - running
-    assert failed == completed - succeeded
-
-    result = {'Total': total, 'Running': running, 'Completed': completed,
-              'Succeeded': succeeded, 'Queued': queued, 'Failed': failed }
-    return result
-
-
-def get_greenlet_status(greenlets, sec=5):
-    session = str(uuid.uuid4())[:8]
-    while True:
-        status = _get_status(greenlets)
-        logger.info('Session: {} >> {}'.format(session, status))
-        if status['Total'] == status['Completed']:
-            return
-        gevent.sleep(sec)
 
 
 def hashfile(fpath):
@@ -167,13 +102,13 @@ def folder_tree_structure(dir_root):
     if not os.path.isabs(dir_root):
         dir_root = os.path.abspath(dir_root)
     
-    dir_proc = os.path.join(dir_root, 'processed')
+    dir_pdfs = os.path.join(dir_root, 'pdfs')
     dir_err = os.path.join(dir_root, 'errors')
     
-    create_directory(dir_proc)
+    create_directory(dir_pdfs)
     create_directory(dir_err)
     
-    return (dir_proc, dir_err)
+    return (dir_pdfs, dir_err)
 
 
 def move_to(src_file, dst_folder):
@@ -191,6 +126,34 @@ def move_to(src_file, dst_folder):
     dst_file = os.path.join(dst_folder, file_w_extension)
     
     os.rename(src_file, dst_file)
-    logger.info("File moved from '{}' to {}".format(src_file, dst_file))
+
+
+def input2num(iput):
+
+        regnum = re.compile("^(?=.*?\d)\d*[.,]?\d*$")
+        if iput:
+            if iput.isdigit():
+                return float(iput)
+
+            oput = iput.replace(",", "")
+            if regnum.match(oput):
+                return float(oput)
+        return -1
+
+
+def cut_line(line, maxchar=80):
+    if not line:
+        raise ValueError("input line can not be empty")
+    if type(line) is not str:
+        try:
+            line = str(line)
+        except:
+            raise ValueError("line must be a str, not a '{}' type".
+                             format(type(line)))
+    
+    if len(line) > (maxchar-3):
+        return line[:maxchar-3] + '... '
+    else:
+        return line
 
 
