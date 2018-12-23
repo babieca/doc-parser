@@ -26,6 +26,7 @@ formatter = logging.Formatter(
 
 logger = logging.getLogger(LOGGERNAME)
 logger.setLevel(loglevel)
+logger.propagate = False
 
 sHandler = logging.StreamHandler(stream=sys.stdout)
 sHandler.setLevel(loglevel)
@@ -44,7 +45,7 @@ def logFunCalls(fn):
         id = str(uuid.uuid4())[:8]
         fname = fn.__name__
         logger = logging.getLogger(LOGGERNAME)
-        
+
         arg = '; '.join(str(arg) for arg in args)
         logger.info("in: '{fname}' ({id})  [ args: {arg} ]".
                     format(fname=fname, id=id,
@@ -54,10 +55,10 @@ def logFunCalls(fn):
                         format(fname=fname, id=id,
                                key=utils.cut_line(key, 20),
                                value=utils.cut_line(value, 80)))
-            
+
         t1 = time()
         out = fn(*args, **kwargs)
-        
+
         logger.info("out: '{fname}' ({id}) {tm} secs.".
                     format(fname=fname, id=id, tm=round(time()-t1, 4)))
         # Return the return value
