@@ -7,7 +7,7 @@ config = {
 
     'app': {
         'app_name': 'docparser',
-        'dir_root': '../gutenberg/',
+        'dir_root': '../../gutenberg/gutenberg',
         'ignore_same_docs': True,
         'freq_min': 5,
         'logfile': log_path
