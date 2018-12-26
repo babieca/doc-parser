@@ -23,6 +23,7 @@ from time import time
 import tempfile
 import utils
 from control import logger, decfun
+from text_summary import text_summary
 
 
 def regex_srch(text, search):
@@ -127,7 +128,9 @@ def parse_pdf(file_path, encoding='utf-8'):
                     if not line and clean_text[-2:] != '\n\n':
                         clean_text += '\n'
                     else:
-                        clean_line = utils.remove_nonsense_lines(str(line), 6)
+                        #remove extra spaces
+                        clean_line = re.sub(r'\s+', ' ', line)
+                        clean_line = utils.remove_nonsense_lines(str(clean_line), 6)
                         if clean_line:
                             clean_text += clean_line + '\n'
                 
@@ -137,6 +140,7 @@ def parse_pdf(file_path, encoding='utf-8'):
                                   format(file_path))
                     return {'status': status, 'args': file_path, 'data': content}
                 
+                summary = text_summary(clean_text)
                 clean_text_bytes = bytes(clean_text, encoding=encoding)            
                 clean_text_b64str = base64.b64encode(clean_text_bytes).decode('utf-8')
                 hash_object = hashlib.sha512(clean_text_bytes)
@@ -154,7 +158,7 @@ def parse_pdf(file_path, encoding='utf-8'):
                     },
                     'content': clean_text,
                     'content_base64': clean_text_b64str,
-                    'summary': '',
+                    'summary': summary,
                     'created': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 }
         

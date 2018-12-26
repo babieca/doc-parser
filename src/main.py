@@ -62,56 +62,61 @@ def main(es_addr, es_port, dir_root):
         logger.info("Directory '{}' is empty".format(dir_root))
         return
     
-    logger.info('Indexing {} files'.format(len(files)))
+    chunks_size = 10
+    chunk_of_files = list(utils.chunks(files, chunks_size))
 
-    g1 = []
-    for file in files:
-        f = os.path.join(file.get('fpath'),
-                         file.get('fname').replace(" ", "_") + \
-                         file.get('fext'))
-        g1.append(gevent.spawn(parser.parse_pdf, f))
-        
-    foo = [g.link_exception(on_exception) for g in g1]
-    
-    if MONITOR_STATUS: monitor_greenlet_status(g1, status_time)
-    
-    gevent.joinall(g1)
-
-    es = ES(es_addr, es_port)
-    es.connect()
-    
-    g2 = []
-    for g in g1:
-        result = g.value
-        if not result: continue
-        if result.get('status') == 'error':
-            utils.move_to(result.get('args'), dir_err)
-            continue
-
-        data = result.get('data')
-
-        to_search = data.get('meta', {}).get('content_sha512_hex')
-        query = query_builder(
-            field="meta.content_sha512_hex",
-            to_search=to_search)
-        
-        if es.search('files', query)['hits']['total'] == 0:
+    round = 1
+    for cfs in chunk_of_files:
+        logger.info('Round: {}/{}, Files (round/total): {}/{}'.
+                    format(round, len(chunk_of_files), len(cfs), len(files)))
+        g1 = []
+        for file in cfs:
+            f = os.path.join(file.get('fpath'),
+                             file.get('fname').replace(" ", "_") + \
+                             file.get('fext'))
+            g1.append(gevent.spawn(parser.parse_pdf, f))
             
-            data = parser.parse_pdf2img(data)
+        foo = [g.link_exception(on_exception) for g in g1]
         
-            g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
-            foo = [g.link_exception(on_exception) for g in g2]
+        if MONITOR_STATUS: monitor_greenlet_status(g1, status_time)
+        
+        gevent.joinall(g1)
+    
+        es = ES(es_addr, es_port)
+        es.connect()
+        
+        g2 = []
+        for g in g1:
+            result = g.value
+            if not result: continue
+            if result.get('status') == 'error':
+                utils.move_to(result.get('args'), dir_err)
+                continue
+    
+            data = result.get('data')
+    
+            to_search = data.get('meta', {}).get('content_sha512_hex')
+            query = query_builder(
+                field="meta.content_sha512_hex",
+                to_search=to_search)
             
-        else:
-            logger.info("File '{}' already in the database. Skipped".
-                        format(data.get('meta', {}).get('path_file')))
+            if es.search('files', query)['hits']['total'] == 0:
+                
+                data = parser.parse_pdf2img(data)
             
-        utils.move_to(result.get('args'), dir_pdfs)
-    
-    if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
-    
-    gevent.joinall(g2)
-    
+                g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
+                foo = [g.link_exception(on_exception) for g in g2]
+                
+            else:
+                logger.info("File '{}' already in the database. Skipped".
+                            format(data.get('meta', {}).get('path_file')))
+                
+            utils.move_to(result.get('args'), dir_pdfs)
+        
+        if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
+        
+        gevent.joinall(g2)
+        round +=1
     return
 
 
