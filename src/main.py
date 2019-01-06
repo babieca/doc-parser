@@ -47,16 +47,21 @@ def on_exception(greenlet):
                  format(greenlet, greenlet.args))
 
 @decfun
-def main(es_addr, es_port, dir_root):
-    
-    dir_pdfs, dir_err = utils.folder_tree_structure(dir_root)
-    
+def main(es_addr, es_port, dir_root, dir_processed, dir_error, folder_images):
+
     if not os.path.isabs(dir_root):
         dir_root = os.path.abspath(dir_root)
-    
+    if not os.path.isabs(dir_processed):
+        dir_processed = os.path.abspath(dir_processed)
+    if not os.path.isabs(dir_error):
+        dir_error = os.path.abspath(dir_error)
+        
+    utils.create_directory(dir_processed)
+    utils.create_directory(dir_error)
+
     status_time = 10
     
-    files = utils.files(dir_root, '.pdf')
+    files = utils.list_files_recursively(dir_root, '.pdf')
 
     if len(files) == 0:
         logger.info("Directory '{}' is empty".format(dir_root))
@@ -89,10 +94,21 @@ def main(es_addr, es_port, dir_root):
         for g in g1:
             result = g.value
             if not result: continue
+            n = 0
+            filename = result.get('args')
+            dir_from = os.path.dirname(filename)
+            file = utils.path_leaf(filename)
+            while n<min(len(dir_root), len(dir_from)) and dir_root[n] == dir_from[n]: n+=1
+            subfolder = dir_from[n:]
+            if subfolder.startswith('/'): subfolder = subfolder[1:]
+            
             if result.get('status') == 'error':
-                utils.move_to(result.get('args'), dir_err)
+                dir_to = os.path.join(dir_error, subfolder)
+                utils.move_to(filename, dir_to)
                 continue
-    
+            else:
+                dir_to = os.path.join(dir_processed, subfolder)
+            
             data = result.get('data')
     
             to_search = data.get('meta', {}).get('content_sha512_hex')
@@ -101,8 +117,14 @@ def main(es_addr, es_port, dir_root):
                 to_search=to_search)
             
             if es.search('files', query)['hits']['total'] == 0:
+                dir_to_img = os.path.join(
+                    dir_to, folder_images, file[:file.find('.')])
                 
-                data = parser.parse_pdf2img(data)
+                if parser.parse_pdf2img(filename, dir_to_img):
+                    data['meta']['path_file'] = dir_to
+                    data['meta']['path_img'] = dir_to_img
+                else:
+                    data['meta']['path_img'] = ''
             
                 g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
                 foo = [g.link_exception(on_exception) for g in g2]
@@ -110,8 +132,8 @@ def main(es_addr, es_port, dir_root):
             else:
                 logger.info("File '{}' already in the database. Skipped".
                             format(data.get('meta', {}).get('path_file')))
-                
-            utils.move_to(result.get('args'), dir_pdfs)
+            
+            utils.move_to(filename, dir_to)
         
         if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
         
@@ -142,6 +164,7 @@ if __name__ == '__main__':
     scheduler = GeventScheduler()
     config_app = config.get('app')
     config_es = config.get('elasticsearch')
+    interval = config.get('freq_min', 5)
     
     if not config_app:
         logger.error('Missing: config > app')
@@ -154,16 +177,26 @@ if __name__ == '__main__':
     es_addr = config_es.get('host', '127.0.01')
     es_port = config_es.get('port', 9200)
     dir_root = config_app.get('dir_root')
+    dir_processed = config_app.get('dir_processed')
+    dir_error = config_app.get('dir_errors')
+    folder_images = config_app.get('folder_images', 'images')
     
     if not dir_root:
         logger.error('Missing: config > app > dir_root')
         sys.exit(1)
+    if not dir_processed:
+        logger.error('Missing: config > app > dir_processed')
+        sys.exit(1)
+    if not dir_error:
+        logger.error('Missing: config > app > dir_error')
+        sys.exit(1)
 
     es_init(es_addr, es_port)
     
-    scheduler.add_job(main, 'interval', seconds=120, name='main_job',
+    scheduler.add_job(main, 'interval', minutes=interval, name='main_job',
         next_run_time=datetime.now(), replace_existing=True,
-        max_instances=1, args=(es_addr, es_port, dir_root))
+        max_instances=1,
+        args=(es_addr, es_port, dir_root, dir_processed, dir_error, folder_images))
     
     g = scheduler.start()  # g is the greenlet that runs the scheduler loop
     

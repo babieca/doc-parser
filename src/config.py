@@ -7,7 +7,10 @@ config = {
 
     'app': {
         'app_name': 'docparser',
-        'dir_root': '../../gutenberg/gutenberg',
+        'dir_root': '../../pms/public/repository',
+        'dir_processed': '../../pms/public/processed',
+        'dir_errors': '../../pms/public/errors',
+        'folder_images': 'images',
         'ignore_same_docs': True,
         'freq_min': 5,
         'logfile': log_path

@@ -9,6 +9,7 @@ import json
 import hashlib
 import string
 import uuid
+import ntpath
 from datetime import datetime
 from control import logger, decfun
 
@@ -17,15 +18,6 @@ def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
         yield l[i:i + n]
-
-
-def is_json(myjson):
-    try:
-        json_object = json.loads(myjson)
-    except Exception as e:
-        return False
-    return True
-
 
 def query_yes_no(question, default=True):
 
@@ -77,6 +69,40 @@ def files(dir, extension=None):
     return filesdic
 
 
+def list_files_recursively(walk_dir, extension=None, exclude_dir=None):
+
+    if walk_dir:
+        if not os.path.isdir(walk_dir):
+            raise ValueError("root does not exist")
+        walk_dir = os.path.abspath(walk_dir)
+    else:
+        raise ValueError("missing walkdir")
+    
+    if exclude_dir:
+        if not os.path.isdir(exclude_dir):
+            raise ValueError("exclude_dir does not exist")
+        exclude_dir = os.path.abspath(exclude_dir)
+        
+    filesdic = []
+    
+    for root, subdirs, files in os.walk(walk_dir):
+    
+        if exclude_dir and root.startswith(exclude_dir): continue
+        
+        for filename in files:
+            file_path = os.path.join(root, filename)
+
+            if (not extension or 
+                (extension and filename.endswith(extension))):
+                
+                dot = filename.find('.') if filename.find('.') >=0 else 0
+                filesdic.append({
+                    'fpath': root,              # directory
+                    'fname': filename[:dot],    # file name
+                    'fext': filename[dot:]})    # extension
+    return filesdic
+
+
 def remove_nonsense_lines(line, min=4):
     counter = 0
     for c in line:
@@ -97,24 +123,6 @@ def create_directory(dirname):
                     "between the os.path.exists and the os.makedirs").
                     format(dirname))
     return True
-
-
-def folder_tree_structure(dir_root):
-    if not dir_root or type(dir_root) is not str:
-        raise ValueError('Root directory must be an absolute or relative path')
-    if not os.path.isdir(dir_root):
-        raise ValueError('Root directory does not exist')
-    
-    if not os.path.isabs(dir_root):
-        dir_root = os.path.abspath(dir_root)
-    
-    dir_pdfs = os.path.join(dir_root, 'pdfs')
-    dir_err = os.path.join(dir_root, 'errors')
-    
-    create_directory(dir_pdfs)
-    create_directory(dir_err)
-    
-    return (dir_pdfs, dir_err)
 
 
 def move_to(src_file, dst_folder):
@@ -161,5 +169,10 @@ def cut_line(line, maxchar=80):
         return line[:maxchar-3] + '... '
     else:
         return line
+
+
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
 
 

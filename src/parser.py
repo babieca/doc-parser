@@ -175,35 +175,21 @@ def parse_pdf(file_path, encoding='utf-8'):
 
 
 @decfun
-def parse_pdf2img(content):
+def parse_pdf2img(filename, folder_img):
+    
+    try:
+        with tempfile.TemporaryDirectory() as tmppath:
+            images = convert_from_path(filename, dpi=80, fmt='jpeg', strict=False,
+                           last_page=10, output_folder=tmppath)
 
-    folder_path = content.get('meta',{}).get('path_file')
-    filename = content.get('meta',{}).get('filename')
-    file_extension = content.get('meta',{}).get('extension')
-    folder_img = os.path.join(folder_path, 'images', filename)
+            utils.create_directory(folder_img)
+            files = os.listdir(tmppath)
+            for file in files:
+                src = os.path.join(tmppath, file)
+                shutil.move(src, folder_img)
+        return True
+    except:
+        logger.error(("pdf2image could not convert " +
+                          " the document '{}'").format(filename))
+        return False
     
-    file_path = os.path.join(folder_path, filename + file_extension)
-    
-    if file_path and filename:
-        try:
-            with tempfile.TemporaryDirectory() as tmppath:
-                images = convert_from_path(file_path, dpi=80, fmt='jpeg', strict=False,
-                               last_page=10, output_folder=tmppath)
-    
-                utils.create_directory(folder_img)
-                files = os.listdir(tmppath)
-                for file in files:
-                    src = os.path.join(tmppath, file)
-                    shutil.move(src, folder_img)            
-
-                content['meta']['path_file'] = os.path.join(folder_path, 'pdfs')
-                content['meta']['path_img'] = folder_img
-
-        except:
-            logger.error(("pdf2image could not convert " +
-                              " the document '{}'").format(filename))
-            content['meta']['path_img'] = ''
-    else:
-        raise ValueError('Error parsing pdf to images')
-    
-    return content

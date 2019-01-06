@@ -29,12 +29,50 @@ mappings = {
         }
     },
     "files": {
-        "settings" : {
+        "settings": {
             "number_of_shards" : 1,
-            "number_of_replicas" : 1
-        },
+            "number_of_replicas" : 1,
+            "analysis": {
+                "tokenizer": {
+                    "ngram_tokenizer": {
+                        "type": "ngram",
+                        "min_gram": 2,
+                        "max_gram": 30,
+                        "token_chars": ["letter", "digit"]
+                    }    
+                },
+                "filter": {
+                    "my_synonym_filter": {
+                        "type": "synonym", 
+                        "synonyms": [ 
+                            "english,british",
+                            "usa,united states of america,us"
+                        ]
+                    }
+                },
+                "char_filter": {
+                    "my_html_filter": {
+                        "type": "html_strip"
+                    }
+                },
+                "analyzer": {
+                    "my_analyzer": {
+                        "tokenizer": "ngram_tokenizer",
+                        "char_filter": ["my_html_filter"],
+                        "filter": [
+                            "lowercase",
+                            "asciifolding",
+                            "my_synonym_filter"
+                        ]
+                    }
+                }
+            }
+        },      
         "mappings": {
             "_doc": {
+                "_all": {
+                    "store": "true"
+                },
                 "dynamic": "strict",
                 "properties": {
                     "id": { "type": "keyword" },
