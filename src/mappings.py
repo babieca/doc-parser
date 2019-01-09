@@ -9,7 +9,6 @@ mappings = {
                 "dynamic": "strict",
                 "properties": {
                     "id": {"type": "text"},
-                    "role": {"type": "keyword"},
                     "name": {
                         "type": "nested",
                         "properties": {
@@ -19,10 +18,6 @@ mappings = {
                     },
                     "email": { "type": "keyword" },
                     "phone": { "type": "keyword" },
-                    "comment": {"type": "text" },
-                    "is_active": { "type": "boolean" },
-                    "created": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss" },
-                    "last_access": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss" },
                     "ip_addr": { "type": "ip" }
                 }
             }
@@ -39,12 +34,12 @@ mappings = {
                         "min_gram": 2,
                         "max_gram": 30,
                         "token_chars": ["letter", "digit"]
-                    }    
+                    }
                 },
                 "filter": {
                     "my_synonym_filter": {
-                        "type": "synonym", 
-                        "synonyms": [ 
+                        "type": "synonym",
+                        "synonyms": [
                             "english,british",
                             "usa,united states of america,us"
                         ]
@@ -67,7 +62,7 @@ mappings = {
                     }
                 }
             }
-        },      
+        },
         "mappings": {
             "_doc": {
                 "_all": {
@@ -79,8 +74,9 @@ mappings = {
                     "meta": {
                         "type": "nested",
                         "properties": {
-                            "path_file": { "type": "keyword" },
-                            "path_img": { "type": "keyword" },
+                            "dir_root": { "type": "keyword" },
+                            "folder_file": { "type": "keyword" },
+                            "folder_img": { "type": "keyword" },
                             "filename": { "type": "keyword" },
                             "extension": { "type": "keyword" },
                             "content_sha512_hex": { "type": "keyword" },
@@ -148,8 +144,8 @@ mapping_relationships = {
                 "my_join_field": {
                     "type": "join",
                     "relations": {
-                        "question": ["answer", "comment"],  
-                        "answer": "vote" 
+                        "question": ["answer", "comment"],
+                        "answer": "vote"
                     }
                 }
             }

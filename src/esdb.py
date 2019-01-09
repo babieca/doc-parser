@@ -71,14 +71,14 @@ class ES():
                 res = self.es.indices.create(index=index_name,
                                              body=mapping,
                                              ignore=[400, 404])
-                logger.info(("Index '{}' was created successfully").
-                            format(index_name))
-            return True
-        
         except Exception as ex:
             logger.error("Error creating the index '{}'.Error: {}".
                          format(index_name, str(ex)))
             return
+        else:
+            logger.info(("Index '{}' was created successfully").
+                            format(index_name))
+            return True
     
     
     def store_record(self, index_name, doc_name, content):
@@ -99,16 +99,18 @@ class ES():
             logger.error('Error. Missing content to store in Elasticsearch')
             return
         
+        t1 = time()
+        logger.debug("Gevent (before es_obj.index): '{}'".format(gevent.getcurrent().name))
+        
         try:
-            t1 = time()
-            logger.debug("Gevent (before es_obj.index): '{}'".format(gevent.getcurrent().name))
             res = self.es.index(index=index_name, doc_type=doc_name, body=content)
-            logger.debug("Gevent (after es_obj.index: '{}' - {}".format(gevent.getcurrent().name, time() - t1))
-            return res
-            
         except Exception as ex:
             logger.error('Error. Something went wrong storing the data')
             return
+        else:
+            logger.debug("Gevent (after es_obj.index: '{}' - {}".
+                format(gevent.getcurrent().name, time() - t1))
+            return res
     
     
     def search(self, index_name, content):

@@ -36,9 +36,9 @@ def query_builder(field, to_search):
         '''
     query = query.replace('\n', ' ').replace('\r', '')
     query = re.sub(' +',' ',query)
-    
+
     query = query.format(field=field, to_search=to_search)
-    
+
     return query
 
 
@@ -47,7 +47,7 @@ def on_exception(greenlet):
                  format(greenlet, greenlet.args))
 
 @decfun
-def main(es_addr, es_port, dir_root, dir_processed, dir_error, folder_images):
+def main(es_addr, es_port, dir_root, dir_processed, dir_error):
 
     if not os.path.isabs(dir_root):
         dir_root = os.path.abspath(dir_root)
@@ -55,98 +55,103 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error, folder_images):
         dir_processed = os.path.abspath(dir_processed)
     if not os.path.isabs(dir_error):
         dir_error = os.path.abspath(dir_error)
-        
+
     utils.create_directory(dir_processed)
     utils.create_directory(dir_error)
 
     status_time = 10
-    
-    files = utils.list_files_recursively(dir_root, '.pdf')
+
+    utils.replace_recursively(dir_root)
+    files = utils.files_in_dir_recursively(dir_root, '.pdf')
 
     if len(files) == 0:
         logger.info("Directory '{}' is empty".format(dir_root))
         return
-    
+
     chunks_size = 10
     chunk_of_files = list(utils.chunks(files, chunks_size))
-
+    
     round = 1
     for cfs in chunk_of_files:
         logger.info('Round: {}/{}, Files (round/total): {}/{}'.
                     format(round, len(chunk_of_files), len(cfs), len(files)))
         g1 = []
         for file in cfs:
-            f = os.path.join(file.get('fpath'),
-                             file.get('fname').replace(" ", "_") + \
-                             file.get('fext'))
-            g1.append(gevent.spawn(parser.parse_pdf, f))
-            
+            g1.append(gevent.spawn(parser.parse_pdf,
+                                   root=file.get('root'),
+                                   folder=file.get('folder'),
+                                   file_name=file.get('fname'),
+                                   file_extension=file.get('fext')))
+
         foo = [g.link_exception(on_exception) for g in g1]
-        
+
         if MONITOR_STATUS: monitor_greenlet_status(g1, status_time)
-        
+
         gevent.joinall(g1)
-    
+        
         es = ES(es_addr, es_port)
         es.connect()
-        
+
         g2 = []
         for g in g1:
             result = g.value
+            
             if not result: continue
+            
             n = 0
-            filename = result.get('args')
-            dir_from = os.path.dirname(filename)
-            file = utils.path_leaf(filename)
-            while n<min(len(dir_root), len(dir_from)) and dir_root[n] == dir_from[n]: n+=1
-            subfolder = dir_from[n:]
-            if subfolder.startswith('/'): subfolder = subfolder[1:]
+            data = result.get('data')
+           
+            dir_from = data.get('meta', {}).get('dir_root')
+            folder_file = data.get('meta', {}).get('folder_file', '')
+            filename = data.get('meta', {}).get('filename')
+            file_extension = data.get('meta', {}).get('extension')
+            
+            full_path2file = os.path.join(dir_from, folder_file, filename + file_extension)
             
             if result.get('status') == 'error':
-                dir_to = os.path.join(dir_error, subfolder)
+                dir_to = os.path.join(dir_error, folder_file)
                 utils.move_to(filename, dir_to)
-                continue
+
             else:
-                dir_to = os.path.join(dir_processed, subfolder)
-            
-            data = result.get('data')
-    
-            to_search = data.get('meta', {}).get('content_sha512_hex')
-            query = query_builder(
-                field="meta.content_sha512_hex",
-                to_search=to_search)
-            
-            if es.search('files', query)['hits']['total'] == 0:
-                dir_to_img = os.path.join(
-                    dir_to, folder_images, file[:file.find('.')])
-                
-                if parser.parse_pdf2img(filename, dir_to_img):
-                    data['meta']['path_file'] = dir_to
-                    data['meta']['path_img'] = dir_to_img
+                dir_to = os.path.join(dir_processed, folder_file)
+
+                to_search = data.get('meta', {}).get('content_sha512_hex')
+                query = query_builder(
+                    field="meta.content_sha512_hex",
+                    to_search=to_search)
+
+                if es.search('files', query)['hits']['total'] == 0:
+                    tm = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    folder_img = filename[:filename.find('.')] + tm
+                    dir_to_img = os.path.join(dir_to, folder_img)
+
+                    if parser.parse_pdf2img(full_path2file, dir_to_img):
+                        data['meta']['dir_root'] = dir_processed
+                        data['meta']['folder_img'] = folder_img
+                    else:
+                        data['meta']['folder_img'] = ''
+
+                    g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
+                    foo = [g.link_exception(on_exception) for g in g2]
+
                 else:
-                    data['meta']['path_img'] = ''
-            
-                g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
-                foo = [g.link_exception(on_exception) for g in g2]
-                
-            else:
-                logger.info("File '{}' already in the database. Skipped".
-                            format(data.get('meta', {}).get('path_file')))
-            
-            utils.move_to(filename, dir_to)
-        
+                    logger.info("File '{}' already in the database. Skipped".
+                                format(data.get('meta', {}).get('path_file')))
+
+                utils.move_to(full_path2file, dir_to)
+
         if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
-        
+
         gevent.joinall(g2)
         round +=1
     return
 
 
 def es_init(es_addr, es_port):
-    
+
     es = ES(es_addr, es_port)
     es.connect()
-    
+
     for idx in list(mappings.keys()):
         if not es.secure_delete_index(idx):
             logger.error("Error deleting index '{}'".format(idx))
@@ -155,7 +160,7 @@ def es_init(es_addr, es_port):
         if not es.create_index(idx, mappings.get(idx,'')):
             logger.error("Error creating index '{}'".format(idx))
             return
-    
+
     return
 
 
@@ -165,22 +170,21 @@ if __name__ == '__main__':
     config_app = config.get('app')
     config_es = config.get('elasticsearch')
     interval = config.get('freq_min', 5)
-    
+
     if not config_app:
         logger.error('Missing: config > app')
         sys.exit(1)
-        
+
     if not config_es:
         logger.error('Missing: config > elasticsearch')
         sys.exit(1)
-        
+
     es_addr = config_es.get('host', '127.0.01')
     es_port = config_es.get('port', 9200)
     dir_root = config_app.get('dir_root')
     dir_processed = config_app.get('dir_processed')
     dir_error = config_app.get('dir_errors')
-    folder_images = config_app.get('folder_images', 'images')
-    
+
     if not dir_root:
         logger.error('Missing: config > app > dir_root')
         sys.exit(1)
@@ -192,14 +196,14 @@ if __name__ == '__main__':
         sys.exit(1)
 
     es_init(es_addr, es_port)
-    
+
     scheduler.add_job(main, 'interval', minutes=interval, name='main_job',
         next_run_time=datetime.now(), replace_existing=True,
         max_instances=1,
-        args=(es_addr, es_port, dir_root, dir_processed, dir_error, folder_images))
-    
+        args=(es_addr, es_port, dir_root, dir_processed, dir_error))
+
     g = scheduler.start()  # g is the greenlet that runs the scheduler loop
-    
+
     logger.info('Press Ctrl+{0} to exit'.
                 format('Break' if os.name == 'nt' else 'C'))
 

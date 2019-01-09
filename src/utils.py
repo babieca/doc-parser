@@ -10,6 +10,7 @@ import hashlib
 import string
 import uuid
 import ntpath
+import string
 from datetime import datetime
 from control import logger, decfun
 
@@ -18,6 +19,7 @@ def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
         yield l[i:i + n]
+
 
 def query_yes_no(question, default=True):
 
@@ -49,27 +51,19 @@ def hashfile(fpath):
     return hasher.hexdigest()
 
 
-def files(dir, extension=None):
-
-    if not os.path.isdir(dir):
-        raise ValueError("[  OS  ]  Directory does not exist.")
-
-    filesdic = []
-    dirpath = os.path.abspath(dir)
-
-    for f in os.listdir(dirpath):
-        fpath = os.path.join(dirpath, f)
-        if os.path.isfile(fpath):
-            if not extension or (extension and f.endswith(extension)):
-                filesdic.append({
-                    'fpath': dirpath,                      # directory
-                    'fname': f.split('.')[0],              # file name
-                    'fext': os.path.splitext(fpath)[1]})   # extension
-
-    return filesdic
+def replace_recursively(walk_dir):
+    regex_filter = '[^a-zA-Z0-9\.]'
+    for path, folders, files in os.walk(walk_dir):
+        for f in files:
+            new_name = re.sub(regex_filter, '_', f)
+            os.rename(os.path.join(path, f), os.path.join(path, new_name))
+        for i in range(len(folders)):
+            new_name = re.sub(regex_filter, '_', folders[i])
+            os.rename(os.path.join(path, folders[i]), os.path.join(path, new_name))
+            folders[i] = new_name
 
 
-def list_files_recursively(walk_dir, extension=None, exclude_dir=None):
+def files_in_dir_recursively(walk_dir, extension=None, exclude_dir=None):
 
     if walk_dir:
         if not os.path.isdir(walk_dir):
@@ -85,19 +79,21 @@ def list_files_recursively(walk_dir, extension=None, exclude_dir=None):
         
     filesdic = []
     
-    for root, subdirs, files in os.walk(walk_dir):
+    for directory, folders, files in os.walk(walk_dir):
     
-        if exclude_dir and root.startswith(exclude_dir): continue
+        if exclude_dir and directory.startswith(exclude_dir): continue
         
         for filename in files:
-            file_path = os.path.join(root, filename)
+            file_path = os.path.join(directory, filename)
 
             if (not extension or 
                 (extension and filename.endswith(extension))):
-                
+                folder = os.path.relpath(directory, walk_dir)
+                if folder == '.': folder = ''
                 dot = filename.find('.') if filename.find('.') >=0 else 0
                 filesdic.append({
-                    'fpath': root,              # directory
+                    'root': walk_dir,           # directory
+                    'folder': folder,           # subdirectory
                     'fname': filename[:dot],    # file name
                     'fext': filename[dot:]})    # extension
     return filesdic
@@ -156,23 +152,25 @@ def input2num(iput):
 
 
 def cut_line(line, maxchar=80):
-    if not line:
-        raise ValueError("input line can not be empty")
-    if type(line) is not str:
-        try:
-            line = str(line)
-        except:
-            raise ValueError("line must be a str, not a '{}' type".
-                             format(type(line)))
-    
-    if len(line) > (maxchar-3):
-        return line[:maxchar-3] + '... '
-    else:
-        return line
+    if line:
+        if type(line) is not str:
+            try:
+                line = str(line)
+            except:
+                raise ValueError("line must be a str, not a '{}' type".
+                                 format(type(line)))
+        
+        if len(line) > (maxchar-3):
+            return line[:maxchar-3] + '... '
+        else:
+            return line
 
 
 def path_leaf(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
 
+
+def remove_non_printable_chars(text):
+    return ''.join(list(filter(lambda x: x in set(string.printable), text)))
 

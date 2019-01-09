@@ -3,7 +3,6 @@ monkey.patch_all()
 import gevent
 import os
 import re
-import string
 import base64
 import hashlib
 import subprocess
@@ -27,10 +26,13 @@ from text_summary import text_summary
 
 
 def regex_srch(text, search):
+    match = ''
     try:
-        return re.search(r'(?<='+search+').*', text).group().strip() 
+        match = re.search(r'(?<='+search+').*', text).group().strip()
     except:
         return None
+    else:
+        return utils.remove_non_printable_chars(match)
 
 
 def get_pdfinfo(pdf_path, userpw=None):
@@ -43,7 +45,7 @@ def get_pdfinfo(pdf_path, userpw=None):
 
         out, err = proc.communicate()
     except:
-        raise PDFInfoNotInstalledError(('Unable to get page count. ' + 
+        raise PDFInfoNotInstalledError(('Unable to get page count. ' +
                                         'Is poppler installed and in PATH?'))
 
     try:
@@ -74,84 +76,86 @@ def get_pdfinfo(pdf_path, userpw=None):
 
 
 @decfun
-def parse_pdf(file_path, encoding='utf-8'):
+def parse_pdf(root, file_name, file_extension, folder='', encoding='utf-8'):
 
     t0 = time()
     content = {}
-    
+    file_path = os.path.join(root, folder, file_name+file_extension)
     logger.debug('Gevent (init parse_pdf): {}. File: {}'.
                  format(gevent.getcurrent().name, file_path))
-    
-    directory = os.path.dirname(file_path)
-    filename_w_extension = os.path.basename(file_path)
-    filename, file_extension = os.path.splitext(filename_w_extension)
-    
+
     status = 'error'
     clean_text = ''
     content = {}
-
+    
     if file_extension != '.pdf':
         logger.error("File extension of '{}' is not '.pdf'".format(file_path))
-        
+
     else:
-        
-        eof = subprocess.check_output(['tail', '-1', file_path])
-        if b'%%EOF' != eof and b'%%EOF\n' != eof and b'%%EOF\r\n' != eof:
-            logger.error("Error reading EOF bytes of '{}'".format(file_path))
-    
+
+        eof = subprocess.check_output(['tail', '-n', '1', file_path])
+        # %%EOF, %%EOF\n, %%EOF\r, %%EOF\r\n
+        eof = eof.replace(b'\r', b'')
+        eof = eof.replace(b'\n', b'')
+        if (b'%%EOF' in eof[-4:]):
+            logger.error("Error reading EOF bytes '{}' from '{}'".
+                    format(eof.decode('utf-8'), file_path))
         else:
-            
+
             f_raw = open(file_path, 'rb')
-        
+
             with FileObjectThread(f_raw, 'rb') as pdffile:
-        
+
                 t1 = time()
+                
+                pdfinfo = get_pdfinfo(file_path)
+                numpages = pdfinfo.get('pages', -1)
+                
                 logger.debug('Gevent (before textract.process): {}'.
                              format(gevent.getcurrent().name))
                 try:
                     text = textract.process(file_path, encoding=encoding)
-        
+
                 except:
                     logger.error(("Unexpected error while parsing PDF file_path '{}' " +
                                   "using textract").format(file_path))
                     return {'status': status, 'args': file_path, 'data': content}
-                
+
                 logger.debug('Gevent (after textract.process: {} - {}'.
                              format(gevent.getcurrent().name, time() - t1))
-        
+
                 text = text.decode("utf-8")
-                text = ''.join(list(
-                    filter(lambda x: x in set(string.printable), text)))
+                text = utils.remove_non_printable_chars(text)
                 text = text.split('\n')
-        
+
                 for line in text:
                     if not line and clean_text[-2:] != '\n\n':
                         clean_text += '\n'
                     else:
-                        #remove extra spaces
-                        clean_line = re.sub(r'\s+', ' ', line)
-                        clean_line = utils.remove_nonsense_lines(str(clean_line), 6)
-                        if clean_line:
-                            clean_text += clean_line + '\n'
-                
+                        if text.count(line) <= max(numpages-10, 4):
+                            #remove extra spaces
+                            clean_line = re.sub(r'\s+', ' ', line)
+                            clean_line = utils.remove_nonsense_lines(str(clean_line), 6)
+                            if clean_line:
+                                clean_text += clean_line + '\n'
+
                 if not clean_text:
-                    logger.error(("textract was unable to parse " + 
+                    logger.error(("textract was unable to parse " +
                                   "the contents of the document '{}'").
                                   format(file_path))
                     return {'status': status, 'args': file_path, 'data': content}
-                
+
                 summary = text_summary(clean_text)
-                clean_text_bytes = bytes(clean_text, encoding=encoding)            
+                clean_text_bytes = bytes(clean_text, encoding=encoding)
                 clean_text_b64str = base64.b64encode(clean_text_bytes).decode('utf-8')
                 hash_object = hashlib.sha512(clean_text_bytes)
                 hex_dig = hash_object.hexdigest()
-                
-                pdfinfo = get_pdfinfo(file_path)
-                
+
                 content = {
                     'meta': {
-                        'path_file': directory,
-                        'filename': filename,
+                        'dir_root': root,
+                        'folder_file': folder,
+                        'filename': file_name,
                         'extension': file_extension,
                         'content_sha512_hex': hex_dig,
                         **pdfinfo
@@ -161,22 +165,21 @@ def parse_pdf(file_path, encoding='utf-8'):
                     'summary': summary,
                     'created': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 }
-        
+
                 logger.debug('Gevent (end parse_pdf): {} - {}'.
                              format(gevent.getcurrent().name, time() - t0))
-        
+
                 if not content:
                     status = 'error'
                     logger.error("Empty content for '{}'".format(file_path))
                 else:
                     status = 'ok'
-        
+
     return {'status': status, 'args': file_path, 'data': content}
 
 
 @decfun
 def parse_pdf2img(filename, folder_img):
-    
     try:
         with tempfile.TemporaryDirectory() as tmppath:
             images = convert_from_path(filename, dpi=80, fmt='jpeg', strict=False,
@@ -192,4 +195,4 @@ def parse_pdf2img(filename, folder_img):
         logger.error(("pdf2image could not convert " +
                           " the document '{}'").format(filename))
         return False
-    
+

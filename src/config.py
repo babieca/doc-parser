@@ -7,9 +7,9 @@ config = {
 
     'app': {
         'app_name': 'docparser',
-        'dir_root': '../../pms/public/repository',
-        'dir_processed': '../../pms/public/processed',
-        'dir_errors': '../../pms/public/errors',
+        'dir_root': '../../pms/repository/',
+        'dir_processed': '../../pms/public/files',
+        'dir_errors': '../../pms/repository/errors',
         'folder_images': 'images',
         'ignore_same_docs': True,
         'freq_min': 5,
