@@ -1,6 +1,3 @@
-from gevent import monkey
-monkey.patch_all()
-import gevent
 import os
 import re
 import sys
@@ -12,7 +9,17 @@ import uuid
 import ntpath
 import string
 from datetime import datetime
-from control import logger, decfun
+
+
+def read_txt_file(fname):
+
+    with open(fname) as f:
+        content = f.readlines()
+
+    # remove whitespace characters like `\n` at the end of each line
+    content = [x.strip() for x in content]
+
+    return content
 
 
 def chunks(l, n):

@@ -6,10 +6,13 @@ import nltk
 from nltk.tokenize import RegexpTokenizer, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
+from subprocess import Popen, PIPE
 import bs4 as bs
 import requests
 import heapq
 import textwrap
+import textract
+import utils
 
 try:
     nltk.data.find('tokenizers/punkt')
@@ -24,14 +27,6 @@ except LookupError:
 stopwords = stopwords.words('english')
 tokenizer = RegexpTokenizer(r'\w+')
 stemmer = SnowballStemmer('english')
-
-def preprocessing(text):
-
-    # Removing special characters and digits
-    #text = re.sub('[^a-zA-Z]', ' ', text )
-    text = re.sub(r'\s+', ' ', text)
-
-    return text.lower()
 
 
 def fetch_url(url):
@@ -49,8 +44,50 @@ def fetch_url(url):
 
     return text
 
+def regex_srch(text, search):
+    match = ''
+    try:
+        match = re.search(r'(?<='+search+').*', text).group().strip()
+    except:
+        return None
+    else:
+        return utils.remove_non_printable_chars(match)
 
-def read_file(fname):
+
+def get_pdfinfo(pdf_path):
+    proc = Popen(["pdfinfo", pdf_path], stdout=PIPE, stderr=PIPE)
+    out, err = proc.communicate()
+    data = out.decode("utf8", "ignore")
+    return utils.input2num(regex_srch(data, 'Pages:'))
+
+
+def read_pdf_file(filename, exclude_sent_with_words=[]):
+    clean_text = ''
+    text = textract.process(filename, encoding='utf-8')
+    text = text.decode("utf-8")
+    text = utils.remove_non_printable_chars(text)
+    text = text.split('\n')
+
+    numpages = get_pdfinfo(filename)
+
+    for line in text:
+        if not line and clean_text[-2:] != '\n\n':
+            clean_text += '\n'
+        else:
+            if "disclosure" in line.lower(): break
+            for exc_line in exclude_sent_with_words:
+                if re.search(r'\b' + exc_line.lower() + r'\b', line.lower()): break
+            else:
+                if text.count(line) <= max(numpages-10, 4):
+                    #remove extra spaces
+                    clean_line = re.sub(r'\s+', ' ', line)
+                    clean_line = utils.remove_nonsense_lines(str(clean_line), 6)
+                    if clean_line:
+                        clean_text += clean_line + '\n'
+    return clean_text
+    
+
+def read_txt_file(fname):
 
     with open(fname) as f:
         content = f.readlines()
@@ -64,7 +101,7 @@ def read_file(fname):
 def text_summary(text, numlines=7, lang='english'):
 
     # Preprocessing
-    text = preprocessing(text)
+    text = re.sub('\s+', ' ', text)
 
     # tokenize and form nltk objects
     tokens = nltk.Text(tokenizer.tokenize(text))
@@ -84,7 +121,7 @@ def text_summary(text, numlines=7, lang='english'):
     # calculate score for every sentence
     sentence_scores = dict((sent,0) for sent in sentences)
     for sent in sentences:
-        if len(sent.split()) < 80:
+        if len(sent.split()) <= 30 and len(sent.split()) >= 4:
             # find all words in the sentence
             words = tokenizer.tokenize(sent)
             words = [stemmer.stem(w.lower()) for w in words if w.isalpha() and not w.isdigit()]
@@ -95,7 +132,9 @@ def text_summary(text, numlines=7, lang='english'):
 
     summary_sentences = heapq.nlargest(numlines, sentence_scores, key=sentence_scores.get)
 
-    summary = '\n'.join(summary_sentences)
+    summary_sentences = [ sent.strip().capitalize() for sent in summary_sentences]
+    
+    summary = '\n\n'.join(summary_sentences)
 
     return summary
 
@@ -103,12 +142,18 @@ def text_summary(text, numlines=7, lang='english'):
 if __name__ == '__main__':
 
     numlines = 5
-    url = ''
-    text = fetch_url(url)
-
+    exclude_sent_with_words = read_txt_file('./exclude_words.txt')
+    
+    url = 'https://en.wikipedia.org/wiki/Spain'
+    filename = '/home/laptop/eclipse-workspace/babieca/pms/backup/repository/files/equity/GUANGZHOU_20190104_0000.pdf'
+    
+    #text = fetch_url(url)
+    text = read_pdf_file(filename, exclude_sent_with_words)
+    
     summary = text_summary(text, numlines)
 
-    print('\n'.join(textwrap.wrap(summary, 80, break_long_words=False)))
+    print(summary)
+    #print('\n'.join(textwrap.wrap(summary, 80, break_long_words=False)))
 
     sys.exit(0)
 

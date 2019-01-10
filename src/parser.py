@@ -8,7 +8,6 @@ import hashlib
 import subprocess
 import uuid
 import shutil
-from gevent.fileobject import FileObjectThread
 from subprocess import Popen, PIPE
 import textract
 from pdf2image import convert_from_path, convert_from_bytes
@@ -87,6 +86,12 @@ def parse_pdf(root, file_name, file_extension, folder='', encoding='utf-8'):
     status = 'error'
     clean_text = ''
     content = {}
+    exclude_sent_with_words = []
+    
+    file_exc_words = './exclude_words.txt'
+    if os.path.isfile(file_exc_words):
+        exclude_sent_with_words = utils.read_txt_file(file_exc_words)
+        
     
     if file_extension != '.pdf':
         logger.error("File extension of '{}' is not '.pdf'".format(file_path))
@@ -102,35 +107,35 @@ def parse_pdf(root, file_name, file_extension, folder='', encoding='utf-8'):
                     format(eof.decode('utf-8'), file_path))
         else:
 
-            f_raw = open(file_path, 'rb')
+            t1 = time()
+            
+            pdfinfo = get_pdfinfo(file_path)
+            numpages = pdfinfo.get('pages', -1)
+            
+            logger.debug('Gevent (before textract.process): {}'.
+                         format(gevent.getcurrent().name))
+            try:
+                text = textract.process(file_path, encoding=encoding)
 
-            with FileObjectThread(f_raw, 'rb') as pdffile:
+            except:
+                logger.error(("Unexpected error while parsing PDF file_path '{}' " +
+                              "using textract").format(file_path))
+                return {'status': status, 'args': file_path, 'data': content}
 
-                t1 = time()
-                
-                pdfinfo = get_pdfinfo(file_path)
-                numpages = pdfinfo.get('pages', -1)
-                
-                logger.debug('Gevent (before textract.process): {}'.
-                             format(gevent.getcurrent().name))
-                try:
-                    text = textract.process(file_path, encoding=encoding)
+            logger.debug('Gevent (after textract.process: {} - {}'.
+                         format(gevent.getcurrent().name, time() - t1))
 
-                except:
-                    logger.error(("Unexpected error while parsing PDF file_path '{}' " +
-                                  "using textract").format(file_path))
-                    return {'status': status, 'args': file_path, 'data': content}
+            text = text.decode("utf-8")
+            text = utils.remove_non_printable_chars(text)
+            text = text.split('\n')
 
-                logger.debug('Gevent (after textract.process: {} - {}'.
-                             format(gevent.getcurrent().name, time() - t1))
-
-                text = text.decode("utf-8")
-                text = utils.remove_non_printable_chars(text)
-                text = text.split('\n')
-
-                for line in text:
-                    if not line and clean_text[-2:] != '\n\n':
-                        clean_text += '\n'
+            for line in text:
+                if not line and clean_text[-2:] != '\n\n':
+                    clean_text += '\n'
+                else:
+                    if "disclosure" in line.lower(): break
+                    for exc_words in exclude_sent_with_words:
+                        if re.search(r'\b' + exc_words.lower() + r'\b', line.lower()): break
                     else:
                         if text.count(line) <= max(numpages-10, 4):
                             #remove extra spaces
@@ -139,41 +144,41 @@ def parse_pdf(root, file_name, file_extension, folder='', encoding='utf-8'):
                             if clean_line:
                                 clean_text += clean_line + '\n'
 
-                if not clean_text:
-                    logger.error(("textract was unable to parse " +
-                                  "the contents of the document '{}'").
-                                  format(file_path))
-                    return {'status': status, 'args': file_path, 'data': content}
+            if not clean_text:
+                logger.error(("textract was unable to parse " +
+                              "the contents of the document '{}'").
+                              format(file_path))
+                return {'status': status, 'args': file_path, 'data': content}
 
-                summary = text_summary(clean_text)
-                clean_text_bytes = bytes(clean_text, encoding=encoding)
-                clean_text_b64str = base64.b64encode(clean_text_bytes).decode('utf-8')
-                hash_object = hashlib.sha512(clean_text_bytes)
-                hex_dig = hash_object.hexdigest()
+            summary = text_summary(clean_text)
+            clean_text_bytes = bytes(clean_text, encoding=encoding)
+            clean_text_b64str = base64.b64encode(clean_text_bytes).decode('utf-8')
+            hash_object = hashlib.sha512(clean_text_bytes)
+            hex_dig = hash_object.hexdigest()
 
-                content = {
-                    'meta': {
-                        'dir_root': root,
-                        'folder_file': folder,
-                        'filename': file_name,
-                        'extension': file_extension,
-                        'content_sha512_hex': hex_dig,
-                        **pdfinfo
-                    },
-                    'content': clean_text,
-                    'content_base64': clean_text_b64str,
-                    'summary': summary,
-                    'created': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                }
+            content = {
+                'meta': {
+                    'dir_root': root,
+                    'folder_file': folder,
+                    'filename': file_name,
+                    'extension': file_extension,
+                    'content_sha512_hex': hex_dig,
+                    **pdfinfo
+                },
+                'content': clean_text,
+                'content_base64': clean_text_b64str,
+                'summary': summary,
+                'created': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
 
-                logger.debug('Gevent (end parse_pdf): {} - {}'.
-                             format(gevent.getcurrent().name, time() - t0))
+            logger.debug('Gevent (end parse_pdf): {} - {}'.
+                         format(gevent.getcurrent().name, time() - t0))
 
-                if not content:
-                    status = 'error'
-                    logger.error("Empty content for '{}'".format(file_path))
-                else:
-                    status = 'ok'
+            if not content:
+                status = 'error'
+                logger.error("Empty content for '{}'".format(file_path))
+            else:
+                status = 'ok'
 
     return {'status': status, 'args': file_path, 'data': content}
 

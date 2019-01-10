@@ -1,0 +1,44 @@
+Morgan Stanley
+morgansanley
+UBS
+JP Morgan
+jpporgan
+exhibit
+figure
+disclaimer
+research
+FCA
+ltd
+jan
+feb
+mar
+apr
+june
+july
+aug
+sept
+oct
+nov
+dec
+january
+february
+march
+april
+june
+july
+august
+septemper
+october
+november
+december
+overweight
+equal-weight
+not-rated
+underweight
+overweight/buy
+equal-weight/hold
+not-rated/hold
+underweight/sell
+All rights reserved
+copyright
+Disclosure
