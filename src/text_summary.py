@@ -134,7 +134,7 @@ def text_summary(text, numlines=7, lang='english'):
 
     summary_sentences = [ sent.strip().capitalize() for sent in summary_sentences]
     
-    summary = '\n\n'.join(summary_sentences)
+    summary = '\n'.join(summary_sentences)
 
     return summary
 

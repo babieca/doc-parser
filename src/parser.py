@@ -150,7 +150,7 @@ def parse_pdf(root, file_name, file_extension, folder='', encoding='utf-8'):
                               format(file_path))
                 return {'status': status, 'args': file_path, 'data': content}
 
-            summary = text_summary(clean_text)
+            summary = text_summary(clean_text, 20)
             clean_text_bytes = bytes(clean_text, encoding=encoding)
             clean_text_b64str = base64.b64encode(clean_text_bytes).decode('utf-8')
             hash_object = hashlib.sha512(clean_text_bytes)

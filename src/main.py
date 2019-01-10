@@ -113,8 +113,6 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
                 utils.move_to(filename, dir_to)
 
             else:
-                dir_to = os.path.join(dir_processed, folder_file)
-
                 to_search = data.get('meta', {}).get('content_sha512_hex')
                 query = query_builder(
                     field="meta.content_sha512_hex",
@@ -122,8 +120,8 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
 
                 if es.search('files', query)['hits']['total'] == 0:
                     tm = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    folder_img = filename[:filename.find('.')] + tm
-                    dir_to_img = os.path.join(dir_to, folder_img)
+                    folder_img = os.path.join(folder_file, filename[:filename.find('.')] + tm)
+                    dir_to_img = os.path.join(dir_processed, folder_img)
 
                     if parser.parse_pdf2img(full_path2file, dir_to_img):
                         data['meta']['dir_root'] = dir_processed
@@ -137,7 +135,8 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
                 else:
                     logger.info("File '{}' already in the database. Skipped".
                                 format(data.get('meta', {}).get('path_file')))
-
+                
+                dir_to = os.path.join(dir_processed, folder_file)
                 utils.move_to(full_path2file, dir_to)
 
         if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
