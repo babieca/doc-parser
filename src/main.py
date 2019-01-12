@@ -102,14 +102,14 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
             data = result.get('data')
            
             dir_from = data.get('meta', {}).get('dir_root')
-            folder_file = data.get('meta', {}).get('folder_file', '')
+            folder_doc = data.get('meta', {}).get('folder_file', '')
             filename = data.get('meta', {}).get('filename')
             file_extension = data.get('meta', {}).get('extension')
             
-            full_path2file = os.path.join(dir_from, folder_file, filename + file_extension)
+            full_path2file = os.path.join(dir_from, folder_doc, filename + file_extension)
             
             if result.get('status') == 'error':
-                dir_to = os.path.join(dir_error, folder_file)
+                dir_to = os.path.join(dir_error, folder_doc)
                 utils.move_to(filename, dir_to)
 
             else:
@@ -120,9 +120,13 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
 
                 if es.search('files', query)['hits']['total'] == 0:
                     tm = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    folder_img = os.path.join(folder_file, filename[:filename.find('.')] + tm)
+                    
+                    folder_img = os.path.join('images', folder_doc, filename[:filename.find('.')] + tm)
                     dir_to_img = os.path.join(dir_processed, folder_img)
-
+                    
+                    folder_file = os.path.join('files', folder_doc)
+                    data['meta']['folder_file'] = folder_file
+                    
                     if parser.parse_pdf2img(full_path2file, dir_to_img):
                         data['meta']['dir_root'] = dir_processed
                         data['meta']['folder_img'] = folder_img
@@ -131,13 +135,14 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
 
                     g2.append(gevent.spawn(es.store_record, 'files', '_doc', data))
                     foo = [g.link_exception(on_exception) for g in g2]
-
+                    
+                    dir_to = os.path.join(dir_processed, folder_file)
+                    utils.move_to(full_path2file, dir_to)
                 else:
                     logger.info("File '{}' already in the database. Skipped".
                                 format(data.get('meta', {}).get('path_file')))
                 
-                dir_to = os.path.join(dir_processed, folder_file)
-                utils.move_to(full_path2file, dir_to)
+                
 
         if MONITOR_STATUS: monitor_greenlet_status(g2, status_time)
 

@@ -10,7 +10,6 @@ config = {
         'dir_root': '../../pms/repository/',
         'dir_processed': '../../pms/public/',
         'dir_errors': '../../pms/repository/errors',
-        'folder_images': 'images',
         'ignore_same_docs': True,
         'freq_min': 5,
         'logfile': log_path
