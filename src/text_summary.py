@@ -13,6 +13,7 @@ import heapq
 import textwrap
 import textract
 import utils
+from audioop import reverse
 
 try:
     nltk.data.find('tokenizers/punkt')
@@ -114,6 +115,7 @@ def text_summary(text, numlines=7, lang='english'):
 
     # find word frequencies
     tokens_frequencies = dict(nltk.FreqDist(tokens))
+    tokens_frequencies = dict(sorted(tokens_frequencies.items(), key=lambda kv: kv[1], reverse=True))
 
     # split document into sentences
     sentences = sent_tokenize(text)
@@ -136,7 +138,7 @@ def text_summary(text, numlines=7, lang='english'):
     
     summary = '\n'.join(summary_sentences)
 
-    return summary
+    return summary, tokens_frequencies
 
 
 if __name__ == '__main__':
@@ -145,14 +147,14 @@ if __name__ == '__main__':
     exclude_sent_with_words = read_txt_file('./exclude_words.txt')
     
     url = 'https://en.wikipedia.org/wiki/Spain'
-    filename = '/home/laptop/eclipse-workspace/babieca/pms/backup/repository/files/equity/GUANGZHOU_20190104_0000.pdf'
+    #filename = '/home/laptop/eclipse-workspace/babieca/pms/backup/repository/files/equity/GUANGZHOU_20190104_0000.pdf'
     
-    #text = fetch_url(url)
-    text = read_pdf_file(filename, exclude_sent_with_words)
+    text = fetch_url(url)
+    #text = read_pdf_file(filename, exclude_sent_with_words)
     
-    summary = text_summary(text, numlines)
-
+    summary, freq = text_summary(text, numlines)
     print(summary)
+    print(freq)
     #print('\n'.join(textwrap.wrap(summary, 80, break_long_words=False)))
 
     sys.exit(0)
