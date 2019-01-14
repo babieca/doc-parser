@@ -105,7 +105,22 @@ mappings = {
                     "summary": { "type": "text", "analyzer": "english" },
                     "user_id": { "type": "keyword" },
                     "created": { "type": "date", "format": "yyyy-MM-dd HH:mm:ss" },
-                    "tags": { "type": "text" }
+                    "tags": { "type": "text" },
+                    "sentiment": {
+                        "type": "nested",
+                        "properties": {
+                            "probability": { 
+                                "type": "nested",
+                                "properties": {
+                                    "neg": { "type": "double"},
+                                    "neutral": { "type": "double"},
+                                    "pos": { "type": "double"}
+                                }
+                            },
+                            "label": { "type": "keyword" },
+                            "sentence": { "type": "text" }
+                        }
+                    }
                 }
             }
         }

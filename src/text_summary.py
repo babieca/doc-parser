@@ -1,5 +1,7 @@
 # Text Summarization
 # Algorithm based on weighting
+from gevent import monkey
+monkey.patch_all()
 import re
 import sys
 import nltk
@@ -8,11 +10,13 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from subprocess import Popen, PIPE
 import bs4 as bs
+import gevent
 import requests
 import heapq
 import textwrap
 import textract
 import utils
+import json
 from audioop import reverse
 
 try:
@@ -98,6 +102,14 @@ def read_txt_file(fname):
 
     return content
 
+def send_post_request(url, sent):
+    result = {}
+    r = requests.post(url, {'text': sent})
+    if r.status_code == 200:
+        result = json.loads(r.content.decode())
+    result["sentence"] = sent
+    return result 
+
 
 def text_summary(text, numlines=7, lang='english'):
 
@@ -133,12 +145,22 @@ def text_summary(text, numlines=7, lang='english'):
                 sentence_scores[sent] += tokens_frequencies.get(word, 0)
 
     summary_sentences = heapq.nlargest(numlines, sentence_scores, key=sentence_scores.get)
-
-    summary_sentences = [ sent.strip().capitalize() for sent in summary_sentences]
     
-    summary = '\n'.join(summary_sentences)
+    g1 = []
+    capitalized_summary_sentences = []
+    url = 'http://text-processing.com/api/sentiment/'
+    for sent in summary_sentences:
+        s = sent.strip().capitalize()
+        capitalized_summary_sentences.append(s)
+        g1.append(gevent.spawn(send_post_request, url, s))
+        
+    gevent.joinall(g1)
+    
+    sentiment_sentences = [g.value for g in g1]
+    
+    summary = '\n'.join(capitalized_summary_sentences)
 
-    return summary, tokens_frequencies
+    return summary, tokens_frequencies, sentiment_sentences
 
 
 if __name__ == '__main__':
@@ -152,10 +174,12 @@ if __name__ == '__main__':
     text = fetch_url(url)
     #text = read_pdf_file(filename, exclude_sent_with_words)
     
-    summary, freq = text_summary(text, numlines)
+    summary, freq, sentiment = text_summary(text, numlines)
+
+    #print('\n'.join(textwrap.wrap(summary, 80, break_long_words=False)))
     print(summary)
     print(freq)
-    #print('\n'.join(textwrap.wrap(summary, 80, break_long_words=False)))
+    print(sentiment)
 
     sys.exit(0)
 
