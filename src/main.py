@@ -111,6 +111,9 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
             if result.get('status') == 'error':
                 dir_to = os.path.join(dir_error, folder_doc)
                 utils.move_to(filename, dir_to)
+                directory = os.path.join(dir_from, folder_doc)
+                if len([name for name in os.listdir(directory) if os.path.isfile(os.path.join(directory, name))]) == 0:
+                    os.rmdir(os.path.join(dir_from, folder_doc))
 
             else:
                 to_search = data.get('meta', {}).get('content_sha512_hex')
@@ -138,6 +141,10 @@ def main(es_addr, es_port, dir_root, dir_processed, dir_error):
                     
                     dir_to = os.path.join(dir_processed, folder_file)
                     utils.move_to(full_path2file, dir_to)
+                    directory = os.path.join(dir_from, folder_doc)
+                    if len([name for name in os.listdir(directory) if os.path.isfile(os.path.join(directory, name))]) == 0:
+                        os.rmdir(os.path.join(dir_from, folder_doc))
+                        
                 else:
                     logger.info("File '{}' already in the database. Skipped".
                                 format(data.get('meta', {}).get('path_file')))

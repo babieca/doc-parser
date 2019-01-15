@@ -135,7 +135,8 @@ def parse_pdf(root, file_name, file_extension, folder='', encoding='utf-8'):
                 else:
                     if "disclosure" in line.lower(): break
                     for exc_words in exclude_sent_with_words:
-                        if re.search(r'\b' + exc_words.lower() + r'\b', line.lower()): break
+                        if '@' in line.lower(): break
+                        if re.search(r'\b' + exc_words.lower().replace('+','\+') + r'\b', line.lower()): break
                     else:
                         if text.count(line) <= max(numpages-10, 4):
                             #remove extra spaces

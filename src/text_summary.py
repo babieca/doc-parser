@@ -128,6 +128,7 @@ def text_summary(text, numlines=7, lang='english'):
     # find word frequencies
     tokens_frequencies = dict(nltk.FreqDist(tokens))
     tokens_frequencies = dict(sorted(tokens_frequencies.items(), key=lambda kv: kv[1], reverse=True))
+    freq_large_tokens = dict([(k, v) for k,v in tokens_frequencies.items() if len(k)>3])
 
     # split document into sentences
     sentences = sent_tokenize(text)
@@ -160,7 +161,7 @@ def text_summary(text, numlines=7, lang='english'):
     
     summary = '\n'.join(capitalized_summary_sentences)
 
-    return summary, tokens_frequencies, sentiment_sentences
+    return summary, freq_large_tokens, sentiment_sentences
 
 
 if __name__ == '__main__':
